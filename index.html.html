@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magic Holidays — Request a Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal: #00B09B; --teal-dark: #008A78; --teal-light: #E0F7F4; --teal-mid: #4ECDC4;
+    --navy: #0B1F3A; --gold: #C9972B; --gold-light: #FDF3DC; --white: #FFFFFF;
+    --gray-50: #F8F9FA; --gray-100: #F1F3F5; --gray-200: #E9ECEF;
+    --gray-400: #ADB5BD; --gray-600: #6C757D; --gray-800: #343A40;
+    --danger: #E24B4A; --radius: 12px; --radius-lg: 18px; --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+
+  header { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
+  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .logo-badge { background: var(--teal); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--navy); }
+  .logo-sub { font-size: 11px; color: var(--gray-600); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
+  .header-contact { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--teal-dark); font-weight: 500; }
+  .header-contact svg { width: 16px; height: 16px; }
+
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #1A3A6B 60%, #0F6E56 100%); padding: 72px 2rem 80px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: var(--teal-mid); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: white; line-height: 1.15; margin-bottom: 16px; }
+  .hero h1 span { color: var(--teal-mid); }
+  .hero p { color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300; max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+  .hero-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); font-size: 13px; padding: 6px 14px; border-radius: 100px; }
+
+  .main-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 2rem 80px; display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+  @media (max-width: 860px) { .main-wrap { grid-template-columns: 1fr; } .sidebar { order: -1; } }
+
+  .form-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
+  .form-section { padding: 26px 30px; border-bottom: 1px solid var(--gray-100); }
+  .form-section:last-child { border-bottom: none; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-dark); display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-100); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 500; color: var(--gray-800); }
+  .field label .req { color: var(--teal); margin-left: 2px; }
+  .field input, .field select, .field textarea { width: 100%; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); background: var(--white); color: var(--gray-800); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,176,155,0.12); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--gray-400); }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+  .field input:disabled { background: var(--gray-100); color: var(--gray-400); cursor: not-allowed; }
+
+  /* Destination pills */
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+  .dest-pill input[type=checkbox] { display: none; }
+  .dest-pill label { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; font-size: 13px; color: var(--gray-600); transition: all 0.18s; background: var(--white); user-select: none; }
+  .dest-pill label .pill-icon { font-size: 18px; }
+  .dest-pill input:checked + label { border-color: var(--teal); background: var(--teal-light); color: var(--teal-dark); font-weight: 500; }
+  .dest-pill label:hover { border-color: var(--teal); color: var(--teal-dark); }
+
+  /* Character section */
+  .char-section { display: none; }
+  .char-section.visible { display: block; }
+  .char-group { margin-bottom: 20px; }
+  .char-group:last-of-type { margin-bottom: 0; }
+  .char-group-label { font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .char-group-label span { font-size: 16px; }
+  .char-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .char-pill input[type=checkbox] { display: none; }
+  .char-pill label { padding: 7px 14px; border: 1.5px solid var(--gray-200); border-radius: 100px; cursor: pointer; font-size: 13px; color: var(--gray-600); transition: all 0.18s; background: var(--white); user-select: none; }
+  .char-pill label:hover { border-color: var(--teal); color: var(--teal-dark); }
+  .char-pill.disney input:checked + label { border-color: #1565C0; background: #E3F2FD; color: #1565C0; font-weight: 500; }
+  .char-pill.universal input:checked + label { border-color: #6A1B9A; background: #F3E5F5; color: #6A1B9A; font-weight: 500; }
+  .char-pill.cruise input:checked + label { border-color: #00838F; background: #E0F7FA; color: #00838F; font-weight: 500; }
+  .char-note { font-size: 12px; color: var(--gray-400); margin-top: 14px; font-style: italic; }
+  .char-divider { border: none; border-top: 1px solid var(--gray-100); margin: 16px 0; }
+
+  /* Flexible dates */
+  .dates-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .dates-header .section-label { margin-bottom: 0; flex: 1; }
+  .flex-toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); cursor: pointer; user-select: none; flex-shrink: 0; }
+  .flex-toggle input[type=checkbox] { display: none; }
+  .toggle-track { width: 38px; height: 22px; background: var(--gray-200); border-radius: 100px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+  .toggle-track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: white; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .flex-toggle input:checked + .toggle-track { background: var(--teal); }
+  .flex-toggle input:checked + .toggle-track::after { transform: translateX(16px); }
+  .flexible-note { background: var(--teal-light); border: 1px solid rgba(0,176,155,0.25); border-radius: var(--radius); padding: 11px 14px; font-size: 13px; color: var(--teal-dark); margin-bottom: 14px; display: none; }
+  .flexible-note.visible { display: block; }
+
+  /* Hotel tier */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tier-option input[type=radio] { display: none; }
+  .tier-option label { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; text-align: center; transition: all 0.18s; background: var(--white); }
+  .tier-option label .tier-icon { font-size: 22px; }
+  .tier-option label .tier-name { font-size: 13px; font-weight: 500; color: var(--gray-800); }
+  .tier-option label .tier-price { font-size: 11px; color: var(--gray-400); }
+  .tier-option input:checked + label { border-color: var(--gold); background: var(--gold-light); }
+  .tier-option input:checked + label .tier-name { color: var(--gold); }
+
+  /* Guests */
+  .guest-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+  .guest-row:last-child { border-bottom: none; }
+  .guest-info .guest-type { font-size: 14px; font-weight: 500; }
+  .guest-info .guest-note { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .counter { display: flex; align-items: center; gap: 12px; }
+  .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: var(--white); font-size: 18px; cursor: pointer; color: var(--gray-600); display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .counter-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .counter-val { font-size: 16px; font-weight: 600; min-width: 20px; text-align: center; }
+
+  /* Submit */
+  .submit-section { padding: 24px 30px; background: var(--gray-50); }
+  .btn-submit { width: 100%; padding: 15px; background: var(--teal); color: white; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-submit:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-submit svg { width: 18px; height: 18px; }
+  .submit-note { text-align: center; font-size: 12px; color: var(--gray-400); margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+  /* Success */
+  .success-state { display: none; padding: 60px 32px; text-align: center; }
+  .success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .success-icon svg { width: 32px; height: 32px; color: var(--teal); }
+  .success-state h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 8px; }
+  .success-state p { font-size: 14px; color: var(--gray-600); line-height: 1.7; }
+
+  /* Sidebar */
+  .sidebar { display: flex; flex-direction: column; gap: 20px; }
+  .info-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
+  .info-card-header { background: var(--navy); padding: 20px 22px 16px; }
+  .info-card-header h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: white; font-weight: 600; margin-bottom: 4px; }
+  .info-card-header p { font-size: 12px; color: rgba(255,255,255,0.55); }
+  .info-card-body { padding: 20px 22px; }
+  .contact-card { background: var(--teal); border-radius: var(--radius-lg); padding: 24px 22px; }
+  .contact-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.9); font-size: 13px; margin-bottom: 10px; }
+  .contact-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.8; }
+  .perks-list { display: flex; flex-direction: column; gap: 10px; }
+  .perk { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--gray-700); }
+  .perk-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--teal-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+
+  /* Validation */
+  .field input.error, .field select.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(226,75,74,0.1); }
+  .field-error { font-size: 12px; color: var(--danger); margin-top: 2px; display: none; }
+  .field-error.visible { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-badge">M</div>
+      <div>
+        <div class="logo-text">Magic Holidays</div>
+        <div class="logo-sub">Travel Agency</div>
+      </div>
+    </div>
+    <div class="header-contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      mariah.v@mhtravelagency.com
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">✦ Free quote · No commitment</div>
+  <h1>Plan Your <span>Dream Trip</span><br>with Magic Holidays</h1>
+  <p>Tell us what you're dreaming of and we'll craft a personalised quote within 24 hours — completely free.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">✈ Universal Orlando</span>
+    <span class="hero-badge">🏰 Walt Disney World</span>
+    <span class="hero-badge">🌍 International Packages</span>
+    <span class="hero-badge">🚢 Cruises</span>
+  </div>
+</div>
+
+<div class="main-wrap">
+  <div class="form-card" id="formCard">
+
+    <!-- Personal info -->
+    <div class="form-section">
+      <div class="section-label">Your details</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>First name <span class="req">*</span></label>
+          <input type="text" id="firstName" placeholder="e.g. Sarah">
+          <div class="field-error" id="firstNameErr">Please enter your first name.</div>
+        </div>
+        <div class="field">
+          <label>Last name <span class="req">*</span></label>
+          <input type="text" id="lastName" placeholder="e.g. Johnson">
+          <div class="field-error" id="lastNameErr">Please enter your last name.</div>
+        </div>
+        <div class="field">
+          <label>Email address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com">
+          <div class="field-error" id="emailErr">Please enter a valid email.</div>
+        </div>
+        <div class="field">
+          <label>Phone number</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+    </div>
+
+    <!-- Destination -->
+    <div class="form-section">
+      <div class="section-label">Destination</div>
+      <div class="dest-grid">
+        <div class="dest-pill"><input type="checkbox" id="d1" name="dest" value="universal_orlando" onchange="updateCharSection()"><label for="d1"><span class="pill-icon">🎢</span>Universal Orlando</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d2" name="dest" value="universal_hollywood" onchange="updateCharSection()"><label for="d2"><span class="pill-icon">🎬</span>Universal Hollywood</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d3" name="dest" value="disney_world" onchange="updateCharSection()"><label for="d3"><span class="pill-icon">🏰</span>Walt Disney World</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d4" name="dest" value="disneyland" onchange="updateCharSection()"><label for="d4"><span class="pill-icon">✨</span>Disneyland</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d5" name="dest" value="disney_cruise" onchange="updateCharSection()"><label for="d5"><span class="pill-icon">🚢</span>Disney Cruise Line</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d6" name="dest" value="royal_caribbean" onchange="updateCharSection()"><label for="d6"><span class="pill-icon">⚓</span>Royal Caribbean</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d7" name="dest" value="msc" onchange="updateCharSection()"><label for="d7"><span class="pill-icon">🌊</span>MSC Cruises</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d8" name="dest" value="virgin_voyages" onchange="updateCharSection()"><label for="d8"><span class="pill-icon">💋</span>Virgin Voyages</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d9" name="dest" value="all_inclusive" onchange="updateCharSection()"><label for="d9"><span class="pill-icon">🌴</span>All Inclusive</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d10" name="dest" value="europe" onchange="updateCharSection()"><label for="d10"><span class="pill-icon">🗺</span>Europe</label></div>
+      </div>
+    </div>
+
+    <!-- Character likes — shown dynamically based on destination -->
+    <div class="form-section char-section" id="charSection">
+      <div class="section-label">Favourite characters &amp; themes</div>
+
+      <div class="char-group" id="disneyChars" style="display:none">
+        <div class="char-group-label"><span>🏰</span> Disney Favourites</div>
+        <div class="char-pills">
+          <div class="char-pill disney"><input type="checkbox" id="c_mickey"><label for="c_mickey">Mickey &amp; Minnie</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_frozen"><label for="c_frozen">Frozen — Elsa &amp; Anna</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_lion"><label for="c_lion">The Lion King</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_moana"><label for="c_moana">Moana</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_encanto"><label for="c_encanto">Encanto</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_pixar"><label for="c_pixar">Toy Story / Pixar</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_princess"><label for="c_princess">Disney Princesses</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_marvel"><label for="c_marvel">Marvel Heroes</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_starwars"><label for="c_starwars">Star Wars</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_cars"><label for="c_cars">Cars / Lightning McQueen</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_stitch"><label for="c_stitch">Lilo &amp; Stitch</label></div>
+          <div class="char-pill disney"><input type="checkbox" id="c_pooh"><label for="c_pooh">Winnie the Pooh</label></div>
+        </div>
+      </div>
+
+      <hr class="char-divider" id="charDiv1" style="display:none">
+
+      <div class="char-group" id="universalChars" style="display:none">
+        <div class="char-group-label"><span>🎢</span> Universal Favourites</div>
+        <div class="char-pills">
+          <div class="char-pill universal"><input type="checkbox" id="u_potter"><label for="u_potter">Harry Potter</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_minions"><label for="u_minions">Minions / Despicable Me</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_mario"><label for="u_mario">Super Nintendo World</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_dragons"><label for="u_dragons">How to Train Your Dragon</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_jurassic"><label for="u_jurassic">Jurassic World</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_simpsons"><label for="u_simpsons">The Simpsons</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_spider"><label for="u_spider">Spider-Man &amp; Marvel</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_illum"><label for="u_illum">Illumination Characters</label></div>
+          <div class="char-pill universal"><input type="checkbox" id="u_monsters"><label for="u_monsters">Classic Monsters</label></div>
+        </div>
+      </div>
+
+      <hr class="char-divider" id="charDiv2" style="display:none">
+
+      <div class="char-group" id="cruiseChars" style="display:none">
+        <div class="char-group-label"><span>🚢</span> Cruise Entertainment Preferences</div>
+        <div class="char-pills">
+          <div class="char-pill cruise"><input type="checkbox" id="cr_broadway"><label for="cr_broadway">Broadway Shows</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cr_comedy"><label for="cr_comedy">Comedy &amp; Live Shows</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cr_kids"><label for="cr_kids">Kids' Club Activities</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cr_dining"><label for="cr_dining">Specialty Dining</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cr_spa"><label for="cr_spa">Spa &amp; Relaxation</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cr_shore"><label for="cr_shore">Shore Excursions</label></div>
+        </div>
+      </div>
+
+      <hr class="char-divider" id="charDiv3" style="display:none">
+
+      <div class="char-group" id="allInclusiveChars" style="display:none">
+        <div class="char-group-label"><span>🌴</span> All Inclusive Preferences</div>
+        <div class="char-pills">
+          <div class="char-pill cruise"><input type="checkbox" id="ai_beach"><label for="ai_beach">Beach &amp; Pool</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="ai_food"><label for="ai_food">Gourmet Dining</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="ai_spa"><label for="ai_spa">Spa &amp; Wellness</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="ai_adventure"><label for="ai_adventure">Water Sports &amp; Activities</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="ai_kids"><label for="ai_kids">Kids' Club</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="ai_nightlife"><label for="ai_nightlife">Entertainment &amp; Nightlife</label></div>
+        </div>
+      </div>
+
+      <p class="char-note">Select all that apply — this helps us personalise your itinerary and recommendations!</p>
+    </div>
+
+    <!-- Travel dates -->
+    <div class="form-section">
+      <div class="dates-header">
+        <div class="section-label">Travel dates</div>
+        <label class="flex-toggle">
+          <input type="checkbox" id="flexDates" onchange="toggleFlexDates()">
+          <div class="toggle-track"></div>
+          Flexible dates
+        </label>
+      </div>
+
+      <div id="flexNote" class="flexible-note">
+        ✦ No problem! Let us know your preferred month or season below and we'll find the best available dates and pricing for you.
+      </div>
+
+      <div id="dateFields" class="form-grid">
+        <div class="field">
+          <label>Check-in date <span class="req">*</span></label>
+          <input type="date" id="checkin">
+          <div class="field-error" id="checkinErr">Please select a check-in date.</div>
+        </div>
+        <div class="field">
+          <label>Check-out date <span class="req">*</span></label>
+          <input type="date" id="checkout">
+          <div class="field-error" id="checkoutErr">Please select a check-out date.</div>
+        </div>
+      </div>
+
+      <div id="flexDetails" style="display:none; margin-top:14px;">
+        <div class="form-grid">
+          <div class="field">
+            <label>Preferred month or season</label>
+            <select id="flexMonth">
+              <option value="">— Select</option>
+              <option>January</option><option>February</option><option>March</option>
+              <option>April</option><option>May</option><option>June</option>
+              <option>July</option><option>August</option><option>September</option>
+              <option>October</option><option>November</option><option>December</option>
+              <option>Spring (Mar–May)</option><option>Summer (Jun–Aug)</option>
+              <option>Fall (Sep–Nov)</option><option>Winter (Dec–Feb)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Approximate trip length</label>
+            <select id="flexLength">
+              <option value="">— Select</option>
+              <option>Weekend (2–3 nights)</option>
+              <option>Short trip (4–5 nights)</option>
+              <option>1 week (6–7 nights)</option>
+              <option>Extended (8+ nights)</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guests -->
+    <div class="form-section">
+      <div class="section-label">Guests</div>
+      <div class="guest-row">
+        <div class="guest-info"><div class="guest-type">Adults</div><div class="guest-note">Age 18+</div></div>
+        <div class="counter">
+          <button class="counter-btn" onclick="changeCount('adults',-1)">−</button>
+          <div class="counter-val" id="adultsVal">2</div>
+          <button class="counter-btn" onclick="changeCount('adults',1)">+</button>
+        </div>
+      </div>
+      <div class="guest-row">
+        <div class="guest-info"><div class="guest-type">Children</div><div class="guest-note">Age 3–17</div></div>
+        <div class="counter">
+          <button class="counter-btn" onclick="changeCount('children',-1)">−</button>
+          <div class="counter-val" id="childrenVal">0</div>
+          <button class="counter-btn" onclick="changeCount('children',1)">+</button>
+        </div>
+      </div>
+      <div class="guest-row">
+        <div class="guest-info"><div class="guest-type">Infants</div><div class="guest-note">Under 3</div></div>
+        <div class="counter">
+          <button class="counter-btn" onclick="changeCount('infants',-1)">−</button>
+          <div class="counter-val" id="infantsVal">0</div>
+          <button class="counter-btn" onclick="changeCount('infants',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotel preference -->
+    <div class="form-section">
+      <div class="section-label">Hotel preference</div>
+      <div class="tier-grid">
+        <div class="tier-option"><input type="radio" name="tier" id="t1" value="value"><label for="t1"><span class="tier-icon">💚</span><span class="tier-name">Value</span><span class="tier-price">Best savings</span></label></div>
+        <div class="tier-option"><input type="radio" name="tier" id="t2" value="moderate" checked><label for="t2"><span class="tier-icon">⭐</span><span class="tier-name">Moderate</span><span class="tier-price">Great balance</span></label></div>
+        <div class="tier-option"><input type="radio" name="tier" id="t3" value="luxury"><label for="t3"><span class="tier-icon">👑</span><span class="tier-name">Luxury</span><span class="tier-price">Premium stay</span></label></div>
+      </div>
+    </div>
+
+    <!-- Tickets & add-ons -->
+    <div class="form-section">
+      <div class="section-label">Park tickets &amp; add-ons</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Ticket type</label>
+          <select id="ticketType">
+            <option value="">— No tickets needed</option>
+            <option>1-Day Ticket</option><option>2-Day Ticket</option>
+            <option>3-Day Ticket</option><option>4-Day Ticket</option><option>Annual Pass</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Budget range</label>
+          <select id="budget">
+            <option value="">— Flexible</option>
+            <option>Under $2,000</option><option>$2,000 – $4,000</option>
+            <option>$4,000 – $6,000</option><option>$6,000+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-top:12px">
+        <div class="field">
+          <label>How did you hear about us?</label>
+          <select id="source">
+            <option value="">— Select</option>
+            <option>Google</option><option>Instagram</option><option>Facebook</option>
+            <option>Friend / Family</option><option>Returning client</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Special requests -->
+    <div class="form-section">
+      <div class="section-label">Special requests</div>
+      <div class="field">
+        <label>Tell us more about your trip</label>
+        <textarea id="notes" placeholder="Any special occasions, accessibility needs, must-do experiences, or other details…"></textarea>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-section">
+      <button class="btn-submit" onclick="submitForm()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Send My Quote Request
+      </button>
+      <div class="submit-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Your info is safe. We never share your data.
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="success-state" id="successState">
+      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3>Quote request sent! ✈</h3>
+      <p>Thanks for reaching out. <strong>Mariah</strong> will review your request and get back to you at <strong id="confirmEmail"></strong> within 24 hours with a personalised quote.</p>
+      <p style="margin-top:12px; font-size:13px; color:#ADB5BD">In the meantime, feel free to email <a href="mailto:mariah.v@mhtravelagency.com" style="color:var(--teal)">mariah.v@mhtravelagency.com</a> with any questions.</p>
+    </div>
+
+  </div><!-- /form-card -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="contact-card">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;flex-shrink:0;">M</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:15px;color:white;font-weight:600;margin-bottom:2px">Mariah V.</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7)">Your dedicated travel agent</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        mariah.v@mhtravelagency.com
+      </div>
+      <div class="contact-item" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:-4px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Responds within 24 hours
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>Why Magic Holidays?</h3>
+        <p>+100 expert agents · Top 5 US Agency</p>
+      </div>
+      <div class="info-card-body">
+        <div class="perks-list">
+          <div class="perk"><div class="perk-icon">🎟</div>Best ticket prices — authorized reseller</div>
+          <div class="perk"><div class="perk-icon">🏨</div>Exclusive hotel rates &amp; package deals</div>
+          <div class="perk"><div class="perk-icon">📋</div>Personalised itinerary planning</div>
+          <div class="perk"><div class="perk-icon">✨</div>Character dining &amp; experience bookings</div>
+          <div class="perk"><div class="perk-icon">📞</div>24/7 support during your trip</div>
+          <div class="perk"><div class="perk-icon">💸</div>Price-match guarantee</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <h3>How it works</h3>
+        <p>Simple 3-step process</p>
+      </div>
+      <div class="info-card-body">
+        <div class="perks-list">
+          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">1</div>Fill out this form with your dream trip details</div>
+          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">2</div>Mariah builds a personalised quote within 24 hrs</div>
+          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">3</div>Review, tweak &amp; book — we handle everything!</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+</div>
+
+<script>
+  const guests = { adults: 2, children: 0, infants: 0 };
+
+  function changeCount(type, delta) {
+    const mins = { adults: 1, children: 0, infants: 0 };
+    guests[type] = Math.max(mins[type], guests[type] + delta);
+    document.getElementById(type + 'Val').textContent = guests[type];
+  }
+
+  // ── Flexible dates ────────────────────────────────────────
+  function toggleFlexDates() {
+    const flex    = document.getElementById('flexDates').checked;
+    const ci      = document.getElementById('checkin');
+    const co      = document.getElementById('checkout');
+    const note    = document.getElementById('flexNote');
+    const details = document.getElementById('flexDetails');
+
+    ci.disabled = flex; co.disabled = flex;
+    if (flex) { ci.value = ''; co.value = ''; }
+    note.classList.toggle('visible', flex);
+    details.style.display = flex ? 'block' : 'none';
+    if (flex) {
+      ci.classList.remove('error'); co.classList.remove('error');
+      document.getElementById('checkinErr').classList.remove('visible');
+      document.getElementById('checkoutErr').classList.remove('visible');
+    }
+  }
+
+  (function setDateDefaults() {
+    const fmt = d => d.toISOString().split('T')[0];
+    const today = new Date();
+    document.getElementById('checkin').min = fmt(today);
+    document.getElementById('checkout').min = fmt(today);
+    document.getElementById('checkin').addEventListener('change', function () {
+      const ci = new Date(this.value + 'T00:00:00');
+      const next = new Date(ci); next.setDate(next.getDate() + 1);
+      document.getElementById('checkout').min = fmt(next);
+      const co = document.getElementById('checkout');
+      if (co.value && new Date(co.value) <= ci) co.value = fmt(next);
+    });
+  })();
+
+  // ── Character section ─────────────────────────────────────
+  function updateCharSection() {
+    const sel = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.value);
+    const hasDisney    = sel.includes('disney_world') || sel.includes('disneyland') || sel.includes('disney_cruise');
+    const hasUniversal = sel.includes('universal_orlando') || sel.includes('universal_hollywood');
+    const hasCruise    = sel.includes('royal_caribbean') || sel.includes('msc') || sel.includes('virgin_voyages');
+    const hasAllInc    = sel.includes('all_inclusive');
+    const showAny      = hasDisney || hasUniversal || hasCruise || hasAllInc;
+
+    document.getElementById('charSection').classList.toggle('visible', showAny);
+    document.getElementById('disneyChars').style.display       = hasDisney    ? 'block' : 'none';
+    document.getElementById('universalChars').style.display    = hasUniversal ? 'block' : 'none';
+    document.getElementById('cruiseChars').style.display       = hasCruise    ? 'block' : 'none';
+    document.getElementById('allInclusiveChars').style.display = hasAllInc    ? 'block' : 'none';
+
+    const groups = [hasDisney, hasUniversal, hasCruise, hasAllInc];
+    document.getElementById('charDiv1').style.display = (groups[0] && (groups[1] || groups[2] || groups[3])) ? 'block' : 'none';
+    document.getElementById('charDiv2').style.display = (groups[1] && (groups[2] || groups[3])) ? 'block' : 'none';
+    document.getElementById('charDiv3').style.display = (groups[2] && groups[3]) ? 'block' : 'none';
+  }
+
+  // ── Validation ────────────────────────────────────────────
+  function validate() {
+    let ok = true;
+    const flexible = document.getElementById('flexDates').checked;
+    const checks = [
+      ['firstName', 'firstNameErr', v => v.trim().length > 0],
+      ['lastName',  'lastNameErr',  v => v.trim().length > 0],
+      ['email',     'emailErr',     v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+    ];
+    if (!flexible) {
+      checks.push(['checkin',  'checkinErr',  v => v !== '']);
+      checks.push(['checkout', 'checkoutErr', v => v !== '']);
+    }
+    checks.forEach(([id, errId, fn]) => {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      const pass = fn(el.value);
+      el.classList.toggle('error', !pass);
+      err.classList.toggle('visible', !pass);
+      if (!pass) ok = false;
+    });
+    return ok;
+  }
+
+  function collectFormData() {
+    const flexible = document.getElementById('flexDates').checked;
+    const destinations = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+    const characters = [...document.querySelectorAll('.char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+
+    return {
+      'First Name':        document.getElementById('firstName').value,
+      'Last Name':         document.getElementById('lastName').value,
+      'Email':             document.getElementById('email').value,
+      'Phone':             document.getElementById('phone').value || 'Not provided',
+      'Destinations':      destinations,
+      'Favourite Characters / Themes': characters,
+      'Flexible Dates':    flexible ? 'Yes' : 'No',
+      'Check-in Date':     flexible ? 'Flexible' : (document.getElementById('checkin').value || '—'),
+      'Check-out Date':    flexible ? 'Flexible' : (document.getElementById('checkout').value || '—'),
+      'Preferred Month':   flexible ? (document.getElementById('flexMonth').value || 'Not specified') : '—',
+      'Trip Length':       flexible ? (document.getElementById('flexLength').value || 'Not specified') : '—',
+      'Adults':            document.getElementById('adultsVal').textContent,
+      'Children':          document.getElementById('childrenVal').textContent,
+      'Infants':           document.getElementById('infantsVal').textContent,
+      'Hotel Preference':  (document.querySelector('input[name="tier"]:checked') || {}).value || 'Not selected',
+      'Ticket Type':       document.getElementById('ticketType').value || 'None',
+      'Budget Range':      document.getElementById('budget').value || 'Flexible',
+      'How They Heard':    document.getElementById('source').value || 'Not specified',
+      'Special Requests':  document.getElementById('notes').value || 'None',
+      '_subject':          '✈ New Quote Request — Magic Holidays',
+    };
+  }
+
+  async function submitForm() {
+    if (!validate()) return;
+
+    const btn = document.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sending…';
+
+    try {
+      const res = await fetch('https://formspree.io/f/mariah.v@mhtravelagency.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(collectFormData())
+      });
+
+      if (res.ok) {
+        document.getElementById('confirmEmail').textContent = document.getElementById('email').value;
+        document.querySelectorAll('.form-section, .submit-section').forEach(s => s.style.display = 'none');
+        document.getElementById('successState').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (e) {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Quote Request';
+      alert('Oops! Something went wrong. Please try again or email mariah.v@mhtravelagency.com directly.');
+    }
+  }
+</script>
+</body>
+</html>
