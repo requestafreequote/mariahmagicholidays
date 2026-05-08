@@ -634,11 +634,40 @@
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sending…';
 
     try {
+      const flexible = document.getElementById('flexDates').checked;
+      const destinations = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+      const characters = [...document.querySelectorAll('.char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+
+      const formData = new FormData();
+      formData.append('_subject', '✈ New Quote Request — Magic Holidays');
+      formData.append('_replyto', document.getElementById('email').value);
+      formData.append('First Name', document.getElementById('firstName').value);
+      formData.append('Last Name', document.getElementById('lastName').value);
+      formData.append('Email', document.getElementById('email').value);
+      formData.append('Phone', document.getElementById('phone').value || 'Not provided');
+      formData.append('Destinations', destinations);
+      formData.append('Favourite Characters / Themes', characters);
+      formData.append('Flexible Dates', flexible ? 'Yes' : 'No');
+      formData.append('Check-in Date', flexible ? 'Flexible' : (document.getElementById('checkin').value || '—'));
+      formData.append('Check-out Date', flexible ? 'Flexible' : (document.getElementById('checkout').value || '—'));
+      formData.append('Preferred Month', flexible ? (document.getElementById('flexMonth').value || 'Not specified') : '—');
+      formData.append('Trip Length', flexible ? (document.getElementById('flexLength').value || 'Not specified') : '—');
+      formData.append('Adults', document.getElementById('adultsVal').textContent);
+      formData.append('Children', document.getElementById('childrenVal').textContent);
+      formData.append('Infants', document.getElementById('infantsVal').textContent);
+      formData.append('Hotel Preference', (document.querySelector('input[name="tier"]:checked') || {}).value || 'Not selected');
+      formData.append('Ticket Type', document.getElementById('ticketType').value || 'None');
+      formData.append('Budget Range', document.getElementById('budget').value || 'Flexible');
+      formData.append('How They Heard', document.getElementById('source').value || 'Not specified');
+      formData.append('Special Requests', document.getElementById('notes').value || 'None');
+
       const res = await fetch('https://formspree.io/f/mnjwgqyd', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(collectFormData())
+        body: formData,
+        headers: { 'Accept': 'application/json' }
       });
+
+      const data = await res.json();
 
       if (res.ok) {
         document.getElementById('confirmEmail').textContent = document.getElementById('email').value;
@@ -646,7 +675,7 @@
         document.getElementById('successState').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error('Server error');
+        throw new Error(data.error || 'Server error');
       }
     } catch (e) {
       btn.disabled = false;
