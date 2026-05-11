@@ -215,6 +215,7 @@
         <div class="dest-pill"><input type="checkbox" id="d2" name="dest" value="universal_hollywood" onchange="updateCharSection()"><label for="d2"><span class="pill-icon">🎬</span>Universal Hollywood</label></div>
         <div class="dest-pill"><input type="checkbox" id="d3" name="dest" value="disney_world" onchange="updateCharSection()"><label for="d3"><span class="pill-icon">🏰</span>Walt Disney World</label></div>
         <div class="dest-pill"><input type="checkbox" id="d4" name="dest" value="disneyland" onchange="updateCharSection()"><label for="d4"><span class="pill-icon">✨</span>Disneyland</label></div>
+        <div class="dest-pill"><input type="checkbox" id="d11" name="dest" value="disneyland_paris" onchange="updateCharSection()"><label for="d11"><span class="pill-icon">🗼</span>Disneyland Paris</label></div>
         <div class="dest-pill"><input type="checkbox" id="d5" name="dest" value="disney_cruise" onchange="updateCharSection()"><label for="d5"><span class="pill-icon">🚢</span>Disney Cruise Line</label></div>
         <div class="dest-pill"><input type="checkbox" id="d6" name="dest" value="royal_caribbean" onchange="updateCharSection()"><label for="d6"><span class="pill-icon">⚓</span>Royal Caribbean</label></div>
         <div class="dest-pill"><input type="checkbox" id="d7" name="dest" value="msc" onchange="updateCharSection()"><label for="d7"><span class="pill-icon">🌊</span>MSC Cruises</label></div>
@@ -370,12 +371,44 @@
           <button class="counter-btn" onclick="changeCount('children',1)">+</button>
         </div>
       </div>
+      <!-- Child age inputs — shown dynamically -->
+      <div id="childAgesWrap" style="display:none; margin-top:14px;">
+        <div style="font-size:12px; font-weight:600; color:var(--gray-600); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:10px;">Child Ages</div>
+        <div id="childAgesGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap:10px;"></div>
+      </div>
       <div class="guest-row">
         <div class="guest-info"><div class="guest-type">Infants</div><div class="guest-note">Under 3</div></div>
         <div class="counter">
           <button class="counter-btn" onclick="changeCount('infants',-1)">−</button>
           <div class="counter-val" id="infantsVal">0</div>
           <button class="counter-btn" onclick="changeCount('infants',1)">+</button>
+        </div>
+      </div>
+      <!-- Room requirements — shown when total guests > 4 -->
+      <div id="roomsWrap" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--gray-100);">
+        <div style="font-size:12px; font-weight:600; color:var(--teal-dark); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:12px;">🏨 Room Requirements</div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Number of rooms needed</label>
+            <select id="numRooms">
+              <option value="">— Select</option>
+              <option>1 Room</option>
+              <option>2 Rooms</option>
+              <option>3 Rooms</option>
+              <option>4 Rooms</option>
+              <option>5+ Rooms</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Guests per room</label>
+            <select id="guestsPerRoom">
+              <option value="">— Select</option>
+              <option>2 guests per room</option>
+              <option>3 guests per room</option>
+              <option>4 guests per room</option>
+              <option>Varies per room</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -516,6 +549,35 @@
     const mins = { adults: 1, children: 0, infants: 0 };
     guests[type] = Math.max(mins[type], guests[type] + delta);
     document.getElementById(type + 'Val').textContent = guests[type];
+    if (type === 'children') updateChildAges();
+    updateRoomsSection();
+  }
+
+  function updateChildAges() {
+    const count = guests.children;
+    const wrap  = document.getElementById('childAgesWrap');
+    const grid  = document.getElementById('childAgesGrid');
+    wrap.style.display = count > 0 ? 'block' : 'none';
+    // Add or remove age fields to match count
+    const existing = grid.querySelectorAll('.child-age-field').length;
+    if (count > existing) {
+      for (let i = existing + 1; i <= count; i++) {
+        const div = document.createElement('div');
+        div.className = 'field child-age-field';
+        div.innerHTML = `<label>Child ${i} age</label><select id="childAge${i}"><option value="">— Age</option>${[...Array(15)].map((_,j)=>`<option>${j+3}</option>`).join('')}</select>`;
+        grid.appendChild(div);
+      }
+    } else {
+      for (let i = existing; i > count; i--) {
+        const last = grid.querySelector(`.child-age-field:last-child`);
+        if (last) grid.removeChild(last);
+      }
+    }
+  }
+
+  function updateRoomsSection() {
+    const total = guests.adults + guests.children;
+    document.getElementById('roomsWrap').style.display = total > 4 ? 'block' : 'none';
   }
 
   // ── Flexible dates ────────────────────────────────────────
@@ -554,7 +616,7 @@
   // ── Character section ─────────────────────────────────────
   function updateCharSection() {
     const sel = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.value);
-    const hasDisney    = sel.includes('disney_world') || sel.includes('disneyland') || sel.includes('disney_cruise');
+    const hasDisney    = sel.includes('disney_world') || sel.includes('disneyland') || sel.includes('disneyland_paris') || sel.includes('disney_cruise');
     const hasUniversal = sel.includes('universal_orlando') || sel.includes('universal_hollywood');
     const hasCruise    = sel.includes('royal_caribbean') || sel.includes('msc') || sel.includes('virgin_voyages');
     const hasAllInc    = sel.includes('all_inclusive');
@@ -639,6 +701,14 @@
       const characters = [...document.querySelectorAll('.char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
 
       const formData = new FormData();
+      // Child ages
+      const childAges = [];
+      for (let i = 1; i <= guests.children; i++) {
+        const el = document.getElementById('childAge' + i);
+        childAges.push(el ? (el.value || 'Not specified') : 'Not specified');
+      }
+      const total = guests.adults + guests.children;
+
       formData.append('_subject', '✈ New Quote Request — Magic Holidays');
       formData.append('_replyto', document.getElementById('email').value);
       formData.append('First Name', document.getElementById('firstName').value);
@@ -652,9 +722,12 @@
       formData.append('Check-out Date', flexible ? 'Flexible' : (document.getElementById('checkout').value || '—'));
       formData.append('Preferred Month', flexible ? (document.getElementById('flexMonth').value || 'Not specified') : '—');
       formData.append('Trip Length', flexible ? (document.getElementById('flexLength').value || 'Not specified') : '—');
-      formData.append('Adults', document.getElementById('adultsVal').textContent);
-      formData.append('Children', document.getElementById('childrenVal').textContent);
-      formData.append('Infants', document.getElementById('infantsVal').textContent);
+      formData.append('Adults', guests.adults);
+      formData.append('Children', guests.children);
+      formData.append('Child Ages', guests.children > 0 ? childAges.join(', ') : 'N/A');
+      formData.append('Infants', guests.infants);
+      formData.append('Number of Rooms', total > 4 ? (document.getElementById('numRooms').value || 'Not specified') : 'N/A');
+      formData.append('Guests Per Room', total > 4 ? (document.getElementById('guestsPerRoom').value || 'Not specified') : 'N/A');
       formData.append('Hotel Preference', (document.querySelector('input[name="tier"]:checked') || {}).value || 'Not selected');
       formData.append('Ticket Type', document.getElementById('ticketType').value || 'None');
       formData.append('Budget Range', document.getElementById('budget').value || 'Flexible');
