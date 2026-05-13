@@ -296,6 +296,25 @@
       <p class="char-note">Select all that apply — this helps us personalise your itinerary and recommendations!</p>
     </div>
 
+    <!-- Special rate eligibility — shown when Royal Caribbean or Celebrity selected -->
+    <div class="form-section char-section" id="specialRatesSection" style="display:none;">
+      <div class="section-label">Special Rate Eligibility</div>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">Royal Caribbean and Celebrity Cruises offer exclusive discounted rates for the following groups. Please select any that apply — this helps us find you the best possible pricing!</p>
+      <div class="char-pills" style="flex-wrap:wrap; gap:10px;">
+        <div class="char-pill cruise"><input type="checkbox" id="sr_us_military"><label for="sr_us_military">🇺🇸 US Military (Active/Veteran)</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_military"><label for="sr_ca_military">🇨🇦 Canadian Military (Active/Veteran)</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_us_law"><label for="sr_us_law">🇺🇸 US Law Enforcement</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_law"><label for="sr_ca_law">🇨🇦 Canadian Law Enforcement</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_us_fire"><label for="sr_us_fire">🇺🇸 US Fire Department</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_fire"><label for="sr_ca_fire">🇨🇦 Canadian Fire Department</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_us_emt"><label for="sr_us_emt">🇺🇸 US EMT / First Responder</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_emt"><label for="sr_ca_emt">🇨🇦 Canadian EMT / First Responder</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_55plus"><label for="sr_55plus">🎉 Age 55+</label></div>
+        <div class="char-pill cruise"><input type="checkbox" id="sr_none"><label for="sr_none">None of the above</label></div>
+      </div>
+      <p class="char-note" style="margin-top:12px;">✦ Proof of eligibility may be required at time of booking. Discounts subject to availability and cruise line terms.</p>
+    </div>
+
     <!-- Travel dates -->
     <div class="form-section">
       <div class="dates-header">
@@ -623,6 +642,8 @@
     const hasAllInc    = sel.includes('all_inclusive');
     const showAny      = hasDisney || hasUniversal || hasCruise || hasAllInc;
 
+    const hasRCOrCelebrity = sel.includes('royal_caribbean') || sel.includes('celebrity_cruises');
+    document.getElementById('specialRatesSection').style.display = hasRCOrCelebrity ? 'block' : 'none';
     document.getElementById('charSection').classList.toggle('visible', showAny);
     document.getElementById('disneyChars').style.display       = hasDisney    ? 'block' : 'none';
     document.getElementById('universalChars').style.display    = hasUniversal ? 'block' : 'none';
@@ -710,6 +731,8 @@
       }
       const total = guests.adults + guests.children;
 
+      const specialRates = [...document.querySelectorAll('#specialRatesSection .char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None';
+
       formData.append('_subject', '✈ New Quote Request — Magic Holidays');
       formData.append('_replyto', document.getElementById('email').value);
       formData.append('First Name', document.getElementById('firstName').value);
@@ -717,6 +740,7 @@
       formData.append('Email', document.getElementById('email').value);
       formData.append('Phone', document.getElementById('phone').value || 'Not provided');
       formData.append('Destinations', destinations);
+      formData.append('Special Rate Eligibility', specialRates);
       formData.append('Favourite Characters / Themes', characters);
       formData.append('Flexible Dates', flexible ? 'Yes' : 'No');
       formData.append('Check-in Date', flexible ? 'Flexible' : (document.getElementById('checkin').value || '—'));
