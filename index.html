@@ -304,6 +304,62 @@
       <p class="char-note" style="margin-top:12px;">✦ Leave blank if you don't have a loyalty number yet — we can help you sign up!</p>
     </div>
 
+    <!-- Cruise preferences — shown when any cruise selected -->
+    <div class="form-section" id="cruisePrefsSection" style="display:none;">
+      <div class="section-label">Cruise Preferences</div>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:16px;">Help us find the perfect cruise for you! Tell us a little more about what you're looking for. 🚢</p>
+
+      <!-- Cruise destination -->
+      <div class="field" style="margin-bottom:14px;">
+        <label>Preferred cruise destination / region</label>
+        <div class="char-pills" style="margin-top:8px;">
+          <div class="char-pill cruise"><input type="checkbox" id="cd_caribbean"><label for="cd_caribbean">🏝 Caribbean</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_mediterranean"><label for="cd_mediterranean">🏛 Mediterranean</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_bahamas"><label for="cd_bahamas">🌊 Bahamas</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_alaska"><label for="cd_alaska">🏔 Alaska</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_europe"><label for="cd_europe">🗺 Northern Europe</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_canaries"><label for="cd_canaries">🌋 Canary Islands</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_bermuda"><label for="cd_bermuda">🌸 Bermuda</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_hawaii"><label for="cd_hawaii">🌺 Hawaii</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_mexico"><label for="cd_mexico">🌮 Mexico</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="cd_open"><label for="cd_open">✈ Open to suggestions</label></div>
+        </div>
+      </div>
+
+      <!-- Ports of call -->
+      <div class="field" style="margin-bottom:14px;">
+        <label>Any specific ports of call you'd love to visit?</label>
+        <input type="text" id="portsOfCall" placeholder="e.g. Barcelona, Santorini, Nassau, Cozumel...">
+      </div>
+
+      <!-- Stateroom type -->
+      <div class="field" style="margin-bottom:14px;">
+        <label>Preferred stateroom type</label>
+        <div class="char-pills" style="margin-top:8px;">
+          <div class="char-pill cruise"><input type="checkbox" id="st_interior"><label for="st_interior">🛏 Interior</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="st_oceanview"><label for="st_oceanview">🔭 Oceanview</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="st_veranda"><label for="st_veranda">🌊 Veranda / Balcony</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="st_suite"><label for="st_suite">👑 Suite</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="st_any"><label for="st_any">💚 No preference</label></div>
+        </div>
+      </div>
+
+      <!-- Location on ship -->
+      <div class="field" style="margin-bottom:6px;">
+        <label>Preferred location on the ship</label>
+        <div class="char-pills" style="margin-top:8px;">
+          <div class="char-pill cruise"><input type="checkbox" id="sl_forward"><label for="sl_forward">⬆ Forward (Front)</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="sl_mid"><label for="sl_mid">⬛ Midship (Middle)</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="sl_aft"><label for="sl_aft">⬇ Aft (Rear)</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="sl_high"><label for="sl_high">🔼 Higher deck</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="sl_low"><label for="sl_low">🔽 Lower deck</label></div>
+          <div class="char-pill cruise"><input type="checkbox" id="sl_noref"><label for="sl_noref">💚 No preference</label></div>
+        </div>
+      </div>
+
+      <p class="char-note" style="margin-top:10px;">✦ These preferences help us find the best cabin options for you — we'll do our best to match your wishes!</p>
+    </div>
+
     <!-- Special rate eligibility — shown when Royal Caribbean or Celebrity selected -->
     <div class="form-section char-section" id="specialRatesSection" style="display:none;">
       <div class="section-label">Special Rate Eligibility</div>
@@ -695,9 +751,11 @@
     const sel = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.value);
     const hasDisney    = sel.includes('disney_world') || sel.includes('disneyland') || sel.includes('disneyland_paris') || sel.includes('disney_cruise');
     const hasUniversal = sel.includes('universal_orlando') || sel.includes('universal_hollywood');
-    const hasCruise    = sel.includes('royal_caribbean') || sel.includes('msc') || sel.includes('virgin_voyages') || sel.includes('celebrity_cruises');
+    const hasCruise    = sel.includes('royal_caribbean') || sel.includes('msc') || sel.includes('virgin_voyages') || sel.includes('celebrity_cruises') || sel.includes('disney_cruise');
     const hasAllInc    = sel.includes('all_inclusive');
     const showAny      = hasDisney || hasUniversal || hasCruise || hasAllInc;
+    const hasRCOrCelebrity = sel.includes('royal_caribbean') || sel.includes('celebrity_cruises');
+    document.getElementById('cruisePrefsSection').style.display = hasCruise ? 'block' : 'none';
 
     // Loyalty programs per cruise line
     const loyaltyPrograms = {
@@ -852,6 +910,20 @@
         if (el && el.value.trim()) loyaltySummary.push(`${label}: ${el.value.trim()}`);
       });
       formData.append('Cruise Loyalty Numbers', loyaltySummary.length > 0 ? loyaltySummary.join(' | ') : 'None provided');
+
+      // Cruise preferences
+      const cruiseDests    = [...document.querySelectorAll('#cruisePrefsSection #cd_caribbean, #cd_mediterranean, #cd_bahamas, #cd_alaska, #cd_europe, #cd_canaries, #cd_bermuda, #cd_hawaii, #cd_mexico, #cd_open').values()].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+      const cruiseDestinations2 = [...document.querySelectorAll('[id^="cd_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+      const portsOfCall    = document.getElementById('portsOfCall')?.value || 'Not specified';
+      const stateroomType  = [...document.querySelectorAll('[id^="st_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'No preference';
+      const shipLocation   = [...document.querySelectorAll('[id^="sl_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'No preference';
+
+      if (document.getElementById('cruisePrefsSection').style.display !== 'none') {
+        formData.append('Cruise Destination / Region', cruiseDestinations2);
+        formData.append('Preferred Ports of Call', portsOfCall);
+        formData.append('Preferred Stateroom Type', stateroomType);
+        formData.append('Preferred Location on Ship', shipLocation);
+      }
 
       formData.append('Country / State of Residence', residency);
       formData.append('Special Rate Eligibility', specialRates);      formData.append('Favourite Characters / Themes', characters);
