@@ -1,971 +1,1097 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Magic Holidays — Request a Quote</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --teal: #00B09B; --teal-dark: #008A78; --teal-light: #E0F7F4; --teal-mid: #4ECDC4;
-    --navy: #0B1F3A; --gold: #C9972B; --gold-light: #FDF3DC; --white: #FFFFFF;
-    --gray-50: #F8F9FA; --gray-100: #F1F3F5; --gray-200: #E9ECEF;
-    --gray-400: #ADB5BD; --gray-600: #6C757D; --gray-800: #343A40;
-    --danger: #E24B4A; --radius: 12px; --radius-lg: 18px; --shadow: 0 4px 24px rgba(0,0,0,0.08);
-  }
-  body { font-family: 'DM Sans', sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic Holidays — Request a Quote</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  header { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100; }
-  .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .logo-area { display: flex; align-items: center; gap: 12px; }
-  .logo-badge { background: var(--teal); color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
-  .logo-text { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--navy); }
-  .logo-sub { font-size: 11px; color: var(--gray-600); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1px; }
-  .header-contact { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--teal-dark); font-weight: 500; }
-  .header-contact svg { width: 16px; height: 16px; }
+    :root {
+      --navy: #0D1B2A;
+      --gold: #C9A84C;
+      --gold-light: #F5ECD7;
+      --purple: #7B4FD4;
+      --purple-light: #f3eeff;
+      --white: #ffffff;
+      --gray-bg: #F7F8FA;
+      --gray-text: #666;
+      --gray-border: #E0E0E0;
+      --red: #c0392b;
+      --green: #27ae60;
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(13,27,42,0.08);
+    }
 
-  .hero { background: linear-gradient(135deg, var(--navy) 0%, #1A3A6B 60%, #0F6E56 100%); padding: 72px 2rem 80px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-  .hero-eyebrow { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: var(--teal-mid); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; color: white; line-height: 1.15; margin-bottom: 16px; }
-  .hero h1 span { color: var(--teal-mid); }
-  .hero p { color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300; max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
-  .hero-badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-  .hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); font-size: 13px; padding: 6px 14px; border-radius: 100px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--gray-bg);
+      color: var(--navy);
+      min-height: 100vh;
+    }
 
-  .main-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 2rem 80px; display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
-  @media (max-width: 860px) { .main-wrap { grid-template-columns: 1fr; } .sidebar { order: -1; } }
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--navy);
+      border-bottom: 3px solid var(--gold);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 0.75rem; }
+    .logo-circle {
+      width: 42px; height: 42px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem; color: var(--navy);
+      flex-shrink: 0;
+    }
+    .logo-text { color: var(--white); }
+    .logo-text strong { display: block; font-size: 1rem; letter-spacing: 0.03em; }
+    .logo-text span { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.05em; }
+    .header-contact { color: var(--gold-light); font-size: 0.8rem; text-align: right; }
+    .header-contact a { color: var(--gold); text-decoration: none; }
+    .header-badge {
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 3px;
+      display: inline-block;
+    }
 
-  .form-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
-  .form-section { padding: 26px 30px; border-bottom: 1px solid var(--gray-100); }
-  .form-section:last-child { border-bottom: none; }
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal-dark); display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-100); }
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3050 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+    .hero h1 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; margin-bottom: 0.5rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { font-size: 0.9rem; color: rgba(255,255,255,0.8); max-width: 520px; margin: 0 auto 1rem; line-height: 1.6; }
+    .hero-pills { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .hero-pill {
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
 
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
 
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 13px; font-weight: 500; color: var(--gray-800); }
-  .field label .req { color: var(--teal); margin-left: 2px; }
-  .field input, .field select, .field textarea { width: 100%; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); background: var(--white); color: var(--gray-800); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
-  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,176,155,0.12); }
-  .field input::placeholder, .field textarea::placeholder { color: var(--gray-400); }
-  .field textarea { resize: vertical; min-height: 90px; }
-  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
-  .field input:disabled { background: var(--gray-100); color: var(--gray-400); cursor: not-allowed; }
+    /* ── FORM CARD ── */
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
 
-  /* Destination pills */
-  .dest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-  .dest-pill input[type=checkbox] { display: none; }
-  .dest-pill label { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; font-size: 13px; color: var(--gray-600); transition: all 0.18s; background: var(--white); user-select: none; }
-  .dest-pill label .pill-icon { font-size: 18px; }
-  .dest-pill input:checked + label { border-color: var(--teal); background: var(--teal-light); color: var(--teal-dark); font-weight: 500; }
-  .dest-pill label:hover { border-color: var(--teal); color: var(--teal-dark); }
+    .form-section {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .form-section:last-child { border-bottom: none; }
 
-  /* Character section */
-  .char-section { display: none; }
-  .char-section.visible { display: block; }
-  .char-group { margin-bottom: 20px; }
-  .char-group:last-of-type { margin-bottom: 0; }
-  .char-group-label { font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-  .char-group-label span { font-size: 16px; }
-  .char-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .char-pill input[type=checkbox] { display: none; }
-  .char-pill label { padding: 7px 14px; border: 1.5px solid var(--gray-200); border-radius: 100px; cursor: pointer; font-size: 13px; color: var(--gray-600); transition: all 0.18s; background: var(--white); user-select: none; }
-  .char-pill label:hover { border-color: var(--teal); color: var(--teal-dark); }
-  .char-pill.disney input:checked + label { border-color: #1565C0; background: #E3F2FD; color: #1565C0; font-weight: 500; }
-  .char-pill.universal input:checked + label { border-color: #6A1B9A; background: #F3E5F5; color: #6A1B9A; font-weight: 500; }
-  .char-pill.cruise input:checked + label { border-color: #00838F; background: #E0F7FA; color: #00838F; font-weight: 500; }
-  .char-note { font-size: 12px; color: var(--gray-400); margin-top: 14px; font-style: italic; }
-  .char-divider { border: none; border-top: 1px solid var(--gray-100); margin: 16px 0; }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
 
-  /* Flexible dates */
-  .dates-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-  .dates-header .section-label { margin-bottom: 0; flex: 1; }
-  .flex-toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); cursor: pointer; user-select: none; flex-shrink: 0; }
-  .flex-toggle input[type=checkbox] { display: none; }
-  .toggle-track { width: 38px; height: 22px; background: var(--gray-200); border-radius: 100px; position: relative; transition: background 0.2s; flex-shrink: 0; }
-  .toggle-track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: white; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-  .flex-toggle input:checked + .toggle-track { background: var(--teal); }
-  .flex-toggle input:checked + .toggle-track::after { transform: translateX(16px); }
-  .flexible-note { background: var(--teal-light); border: 1px solid rgba(0,176,155,0.25); border-radius: var(--radius); padding: 11px 14px; font-size: 13px; color: var(--teal-dark); margin-bottom: 14px; display: none; }
-  .flexible-note.visible { display: block; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
 
-  /* Hotel tier */
-  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .tier-option input[type=radio] { display: none; }
-  .tier-option label { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius); cursor: pointer; text-align: center; transition: all 0.18s; background: var(--white); }
-  .tier-option label .tier-icon { font-size: 22px; }
-  .tier-option label .tier-name { font-size: 13px; font-weight: 500; color: var(--gray-800); }
-  .tier-option label .tier-price { font-size: 11px; color: var(--gray-400); }
-  .tier-option input:checked + label { border-color: var(--gold); background: var(--gold-light); }
-  .tier-option input:checked + label .tier-name { color: var(--gold); }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field label { font-size: 0.78rem; font-weight: 600; color: var(--navy); }
+    .field label .req { color: var(--red); margin-left: 2px; }
 
-  /* Guests */
-  .guest-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
-  .guest-row:last-child { border-bottom: none; }
-  .guest-info .guest-type { font-size: 14px; font-weight: 500; }
-  .guest-info .guest-note { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
-  .counter { display: flex; align-items: center; gap: 12px; }
-  .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: var(--white); font-size: 18px; cursor: pointer; color: var(--gray-600); display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .counter-btn:hover { border-color: var(--teal); color: var(--teal); }
-  .counter-val { font-size: 16px; font-weight: 600; min-width: 20px; text-align: center; }
+    input[type="text"], input[type="email"], input[type="tel"],
+    input[type="date"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1.5px solid var(--gray-border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    input.error, select.error { border-color: var(--red); }
+    .error-msg { font-size: 0.72rem; color: var(--red); display: none; }
+    .error-msg.show { display: block; }
 
-  /* Submit */
-  .submit-section { padding: 24px 30px; background: var(--gray-50); }
-  .btn-submit { width: 100%; padding: 15px; background: var(--teal); color: white; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .btn-submit:hover { background: var(--teal-dark); transform: translateY(-1px); }
-  .btn-submit svg { width: 18px; height: 18px; }
-  .submit-note { text-align: center; font-size: 12px; color: var(--gray-400); margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    textarea { min-height: 90px; resize: vertical; }
 
-  /* Success */
-  .success-state { display: none; padding: 60px 32px; text-align: center; }
-  .success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
-  .success-icon svg { width: 32px; height: 32px; color: var(--teal); }
-  .success-state h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 8px; }
-  .success-state p { font-size: 14px; color: var(--gray-600); line-height: 1.7; }
+    /* chip selects */
+    .chip-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 5px 11px;
+      border: 1.5px solid var(--gray-border);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: var(--white);
+      color: var(--navy);
+      user-select: none;
+    }
+    .chip:hover { border-color: var(--gold); background: var(--gold-light); }
+    .chip.selected { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .chip.selected.gold { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
-  /* Sidebar */
-  .sidebar { display: flex; flex-direction: column; gap: 20px; }
-  .info-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
-  .info-card-header { background: var(--navy); padding: 20px 22px 16px; }
-  .info-card-header h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: white; font-weight: 600; margin-bottom: 4px; }
-  .info-card-header p { font-size: 12px; color: rgba(255,255,255,0.55); }
-  .info-card-body { padding: 20px 22px; }
-  .contact-card { background: var(--teal); border-radius: var(--radius-lg); padding: 24px 22px; }
-  .contact-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.9); font-size: 13px; margin-bottom: 10px; }
-  .contact-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.8; }
-  .perks-list { display: flex; flex-direction: column; gap: 10px; }
-  .perk { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--gray-700); }
-  .perk-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--teal-light); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .chip-divider {
+      width: 100%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gray-text);
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0 0.1rem;
+      border-top: 1px solid var(--gray-border);
+      margin-top: 0.3rem;
+    }
 
-  /* Validation */
-  .field input.error, .field select.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(226,75,74,0.1); }
-  .field-error { font-size: 12px; color: var(--danger); margin-top: 2px; display: none; }
-  .field-error.visible { display: block; }
-</style>
+    /* hint */
+    .hint {
+      font-size: 0.74rem;
+      color: var(--gray-text);
+      margin-top: 0.4rem;
+      padding: 6px 10px;
+      background: var(--gold-light);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* loyalty */
+    .loyalty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    @media (max-width: 480px) { .loyalty-grid { grid-template-columns: 1fr; } }
+    .loyalty-field label { font-size: 0.75rem; font-weight: 600; margin-bottom: 3px; display: block; color: var(--navy); }
+
+    /* guest counter */
+    .guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    @media (max-width: 480px) { .guest-grid { grid-template-columns: 1fr; } }
+    .guest-box {
+      border: 1.5px solid var(--gray-border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .guest-box .guest-label { font-size: 0.78rem; font-weight: 700; color: var(--navy); }
+    .guest-box .guest-sub { font-size: 0.68rem; color: var(--gray-text); margin-bottom: 0.5rem; }
+    .counter { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+    .counter button {
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--gray-border);
+      border-radius: 50%;
+      background: var(--white);
+      font-size: 1rem; line-height: 1;
+      cursor: pointer; color: var(--navy);
+      transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .counter button:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .counter .count { font-size: 1.1rem; font-weight: 700; min-width: 1.5rem; }
+
+    /* hotel pref */
+    .hotel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    @media (max-width: 480px) { .hotel-grid { grid-template-columns: 1fr; } }
+    .hotel-card {
+      border: 2px solid var(--gray-border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.18s;
+    }
+    .hotel-card:hover { border-color: var(--gold); }
+    .hotel-card.selected { border-color: var(--navy); background: var(--navy); color: var(--white); }
+    .hotel-card .hotel-icon { font-size: 1.3rem; }
+    .hotel-card .hotel-name { font-size: 0.82rem; font-weight: 700; margin: 4px 0 2px; }
+    .hotel-card .hotel-desc { font-size: 0.7rem; color: var(--gray-text); }
+    .hotel-card.selected .hotel-desc { color: rgba(255,255,255,0.7); }
+
+    /* date toggle */
+    .date-toggle {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; cursor: pointer; margin-bottom: 0.75rem;
+    }
+    .date-toggle input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--navy); cursor: pointer; }
+    #flexible-section { display: none; }
+    #flexible-section.show { display: block; }
+    #fixed-dates.hide { display: none; }
+
+    /* child ages */
+    #child-ages-section { display: none; }
+    #child-ages-section.show { display: block; }
+
+    /* special rate */
+    .rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    @media (max-width: 480px) { .rate-grid { grid-template-columns: 1fr; } }
+    .rate-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; cursor: pointer; }
+    .rate-item input { accent-color: var(--navy); }
+
+    /* destination sections */
+    .dest-section { display: none; }
+    .dest-section.show { display: block; }
+
+    /* submit */
+    .submit-wrap { padding: 1.25rem 1.5rem; }
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: #1a3050; }
+    .privacy-note {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--gray-text);
+      margin-top: 0.6rem;
+    }
+
+    /* success */
+    .success-card {
+      display: none;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    .success-card.show { display: block; }
+    .success-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .success-card h2 { color: var(--navy); margin-bottom: 0.5rem; }
+    .success-card p { color: var(--gray-text); font-size: 0.88rem; line-height: 1.6; }
+    .agent-card {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: var(--gold-light);
+      border-radius: 10px;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .agent-avatar {
+      width: 44px; height: 44px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); font-weight: 800; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .agent-info { text-align: left; }
+    .agent-info strong { display: block; font-size: 0.88rem; color: var(--navy); }
+    .agent-info span { font-size: 0.75rem; color: var(--gray-text); }
+
+    /* ── WHY BOOK WITH ME ── */
+    .why-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .why-section h2 {
+      text-align: center;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+    .why-section .why-sub {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--gray-text);
+      margin-bottom: 1.25rem;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 0.85rem;
+    }
+    .why-card {
+      border-radius: 10px;
+      padding: 1rem;
+      border-top: 3px solid var(--gold);
+      background: var(--gray-bg);
+    }
+    .why-card--purple {
+      border-top-color: var(--purple);
+      background: var(--purple-light);
+    }
+    .why-card--gold {
+      border-top-color: var(--gold);
+      background: var(--gold-light);
+    }
+    .why-icon { font-size: 1.4rem; display: block; margin-bottom: 0.4rem; }
+    .why-card h3 { font-size: 0.82rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+    .why-card p { font-size: 0.76rem; color: var(--gray-text); line-height: 1.5; margin: 0; }
+    .why-card--gold h3, .why-card--gold p { color: #4a3000; }
+    .why-card--purple p { color: #3d1d6e; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: var(--navy);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem 1.5rem;
+      margin-top: 1.5rem;
+      color: var(--white);
+    }
+    .how-section h2 { text-align: center; font-size: 1.1rem; margin-bottom: 0.25rem; }
+    .how-section .how-sub { text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-bottom: 1.25rem; }
+    .how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 500px) { .how-steps { grid-template-columns: 1fr; } }
+    .how-step { text-align: center; }
+    .step-num {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.5rem;
+    }
+    .how-step p { font-size: 0.78rem; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.75rem;
+      color: var(--gray-text);
+    }
+    .site-footer a { color: var(--gold); text-decoration: none; }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo-area">
-      <div class="logo-badge">M</div>
-      <div>
-        <div class="logo-text">Magic Holidays</div>
-        <div class="logo-sub">Travel Agency</div>
-      </div>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-wrap">
+    <div class="logo-circle">M</div>
+    <div class="logo-text">
+      <strong>Magic Holidays</strong>
+      <span>Travel Agency</span>
     </div>
-    <div class="header-contact">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      mariah.v@mhtravelagency.com
-    </div>
+  </div>
+  <div class="header-contact">
+    <a href="mailto:mariah.v@mhtravelagency.com">mariah.v@mhtravelagency.com</a>
+    <div class="header-badge">✦ Free quote · No commitment</div>
   </div>
 </header>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">✦ Free quote · No commitment</div>
-  <h1>Plan Your <span>Dream Trip</span><br>with Magic Holidays</h1>
+  <h1>Plan Your Dream Trip <span>with Magic Holidays</span></h1>
   <p>Tell us what you're dreaming of and we'll craft a personalised quote within 24 hours — completely free.</p>
-  <div class="hero-badges">
-    <span class="hero-badge">✈ Universal Orlando</span>
-    <span class="hero-badge">🏰 Walt Disney World</span>
-    <span class="hero-badge">🌍 International Packages</span>
-    <span class="hero-badge">🚢 Cruises</span>
+  <div class="hero-pills">
+    <span class="hero-pill">✈ Universal Orlando</span>
+    <span class="hero-pill">🏰 Walt Disney World</span>
+    <span class="hero-pill">🌍 International Packages</span>
+    <span class="hero-pill">🚢 Cruises</span>
   </div>
 </div>
 
-<div class="main-wrap">
-  <div class="form-card" id="formCard">
+<div class="page-wrap">
 
-    <!-- Personal info -->
-    <div class="form-section">
-      <div class="section-label">Your details</div>
-      <div class="form-grid">
-        <div class="field">
-          <label>First name <span class="req">*</span></label>
-          <input type="text" id="firstName" placeholder="e.g. Sarah">
-          <div class="field-error" id="firstNameErr">Please enter your first name.</div>
+  <!-- FORM -->
+  <div class="form-card" id="form-card">
+    <form id="quote-form" novalidate>
+
+      <!-- YOUR DETAILS -->
+      <div class="form-section">
+        <div class="section-label">👤 Your details</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="fname">First name <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="First name" />
+            <span class="error-msg" id="fname-err">Please enter your first name.</span>
+          </div>
+          <div class="field">
+            <label for="lname">Last name <span class="req">*</span></label>
+            <input type="text" id="lname" placeholder="Last name" />
+            <span class="error-msg" id="lname-err">Please enter your last name.</span>
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:0.75rem">
+          <div class="field">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="you@example.com" />
+            <span class="error-msg" id="email-err">Please enter a valid email.</span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" placeholder="(555) 000-0000" />
+          </div>
+        </div>
+      </div>
+
+      <!-- DESTINATION -->
+      <div class="form-section">
+        <div class="section-label">🗺️ Destination</div>
+        <div class="chip-group" id="dest-chips">
+          <span class="chip" data-dest="universal-orlando">🎢 Universal Orlando</span>
+          <span class="chip" data-dest="universal-hollywood">🎬 Universal Hollywood</span>
+          <span class="chip" data-dest="universal-kids">🦕 Universal Kids Resort</span>
+          <span class="chip" data-dest="wdw">🏰 Walt Disney World</span>
+          <span class="chip" data-dest="disneyland">✨ Disneyland</span>
+          <span class="chip" data-dest="dlp">🗼 Disneyland Paris</span>
+          <span class="chip" data-dest="dcl">🚢 Disney Cruise Line</span>
+          <span class="chip" data-dest="royal">⚓ Royal Caribbean</span>
+          <span class="chip" data-dest="msc">🌊 MSC Cruises</span>
+          <span class="chip" data-dest="celebrity">⭐ Celebrity Cruises</span>
+          <span class="chip" data-dest="virgin">💋 Virgin Voyages</span>
+          <span class="chip" data-dest="allinclusive">🌴 All Inclusive</span>
+          <span class="chip" data-dest="europe">🗺 Europe</span>
+        </div>
+      </div>
+
+      <!-- CHARACTERS / THEMES -->
+      <div class="form-section" id="section-characters">
+        <div class="section-label">⭐ Favourite characters &amp; themes</div>
+        <div class="chip-group" id="char-chips">
+          <div class="chip-divider">🏰 Disney Favourites</div>
+          <span class="chip">Mickey &amp; Minnie</span>
+          <span class="chip">Frozen — Elsa &amp; Anna</span>
+          <span class="chip">The Lion King</span>
+          <span class="chip">Moana</span>
+          <span class="chip">Encanto</span>
+          <span class="chip">Toy Story / Pixar</span>
+          <span class="chip">Disney Princesses</span>
+          <span class="chip">Marvel Heroes</span>
+          <span class="chip">Star Wars</span>
+          <span class="chip">Cars / Lightning McQueen</span>
+          <span class="chip">Lilo &amp; Stitch</span>
+          <span class="chip">Winnie the Pooh</span>
+          <div class="chip-divider">🎢 Universal Favourites</div>
+          <span class="chip">Harry Potter</span>
+          <span class="chip">Minions / Despicable Me</span>
+          <span class="chip">Super Nintendo World</span>
+          <span class="chip">How to Train Your Dragon</span>
+          <span class="chip">Jurassic World</span>
+          <span class="chip">The Simpsons</span>
+          <span class="chip">Spider-Man &amp; Marvel</span>
+          <span class="chip">Illumination Characters</span>
+          <span class="chip">Classic Monsters</span>
+          <div class="chip-divider">🚢 Cruise Entertainment</div>
+          <span class="chip">Broadway Shows</span>
+          <span class="chip">Comedy &amp; Live Shows</span>
+          <span class="chip">Kids' Club Activities</span>
+          <span class="chip">Specialty Dining</span>
+          <span class="chip">Spa &amp; Relaxation</span>
+          <span class="chip">Shore Excursions</span>
+          <div class="chip-divider">🌴 All Inclusive Preferences</div>
+          <span class="chip">Beach &amp; Pool</span>
+          <span class="chip">Gourmet Dining</span>
+          <span class="chip">Spa &amp; Wellness</span>
+          <span class="chip">Water Sports &amp; Activities</span>
+          <span class="chip">Kids' Club</span>
+          <span class="chip">Entertainment &amp; Nightlife</span>
+        </div>
+        <div class="hint">Select all that apply — this helps us personalise your itinerary and recommendations!</div>
+      </div>
+
+      <!-- UNIVERSAL KIDS RESORT SECTION -->
+      <div class="form-section dest-section" id="section-universal-kids">
+        <div class="section-label">🦕 Universal Kids Resort — Frisco, Texas</div>
+        <div class="hint" style="margin-bottom:0.75rem">Universal Kids Resort is a brand-new family theme park experience in Frisco, Texas — tell us a little more so we can plan the perfect visit!</div>
+        <div class="field" style="margin-bottom:0.75rem">
+          <label>Favourite Universal Kids characters</label>
+          <div class="chip-group" style="margin-top:0.4rem">
+            <span class="chip">Minions / Despicable Me</span>
+            <span class="chip">How to Train Your Dragon</span>
+            <span class="chip">Shrek</span>
+            <span class="chip">Trolls</span>
+            <span class="chip">Gabby's Dollhouse</span>
+            <span class="chip">Bluey</span>
+            <span class="chip">Jurassic World</span>
+            <span class="chip">Open to anything!</span>
+          </div>
         </div>
         <div class="field">
-          <label>Last name <span class="req">*</span></label>
-          <input type="text" id="lastName" placeholder="e.g. Johnson">
-          <div class="field-error" id="lastNameErr">Please enter your last name.</div>
-        </div>
-        <div class="field">
-          <label>Email address <span class="req">*</span></label>
-          <input type="email" id="email" placeholder="you@example.com">
-          <div class="field-error" id="emailErr">Please enter a valid email.</div>
-        </div>
-        <div class="field">
-          <label>Phone number</label>
-          <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
-        </div>
-      </div>
-    </div>
-
-    <!-- Destination -->
-    <div class="form-section">
-      <div class="section-label">Destination</div>
-      <div class="dest-grid">
-        <div class="dest-pill"><input type="checkbox" id="d1" name="dest" value="universal_orlando" onchange="updateCharSection()"><label for="d1"><span class="pill-icon">🎢</span>Universal Orlando</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d2" name="dest" value="universal_hollywood" onchange="updateCharSection()"><label for="d2"><span class="pill-icon">🎬</span>Universal Hollywood</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d3" name="dest" value="disney_world" onchange="updateCharSection()"><label for="d3"><span class="pill-icon">🏰</span>Walt Disney World</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d4" name="dest" value="disneyland" onchange="updateCharSection()"><label for="d4"><span class="pill-icon">✨</span>Disneyland</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d11" name="dest" value="disneyland_paris" onchange="updateCharSection()"><label for="d11"><span class="pill-icon">🗼</span>Disneyland Paris</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d5" name="dest" value="disney_cruise" onchange="updateCharSection()"><label for="d5"><span class="pill-icon">🚢</span>Disney Cruise Line</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d6" name="dest" value="royal_caribbean" onchange="updateCharSection()"><label for="d6"><span class="pill-icon">⚓</span>Royal Caribbean</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d7" name="dest" value="msc" onchange="updateCharSection()"><label for="d7"><span class="pill-icon">🌊</span>MSC Cruises</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d12" name="dest" value="celebrity_cruises" onchange="updateCharSection()"><label for="d12"><span class="pill-icon">⭐</span>Celebrity Cruises</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d8" name="dest" value="virgin_voyages" onchange="updateCharSection()"><label for="d8"><span class="pill-icon">💋</span>Virgin Voyages</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d9" name="dest" value="all_inclusive" onchange="updateCharSection()"><label for="d9"><span class="pill-icon">🌴</span>All Inclusive</label></div>
-        <div class="dest-pill"><input type="checkbox" id="d10" name="dest" value="europe" onchange="updateCharSection()"><label for="d10"><span class="pill-icon">🗺</span>Europe</label></div>
-      </div>
-    </div>
-
-    <!-- Character likes — shown dynamically based on destination -->
-    <div class="form-section char-section" id="charSection">
-      <div class="section-label">Favourite characters &amp; themes</div>
-
-      <div class="char-group" id="disneyChars" style="display:none">
-        <div class="char-group-label"><span>🏰</span> Disney Favourites</div>
-        <div class="char-pills">
-          <div class="char-pill disney"><input type="checkbox" id="c_mickey"><label for="c_mickey">Mickey &amp; Minnie</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_frozen"><label for="c_frozen">Frozen — Elsa &amp; Anna</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_lion"><label for="c_lion">The Lion King</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_moana"><label for="c_moana">Moana</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_encanto"><label for="c_encanto">Encanto</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_pixar"><label for="c_pixar">Toy Story / Pixar</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_princess"><label for="c_princess">Disney Princesses</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_marvel"><label for="c_marvel">Marvel Heroes</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_starwars"><label for="c_starwars">Star Wars</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_cars"><label for="c_cars">Cars / Lightning McQueen</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_stitch"><label for="c_stitch">Lilo &amp; Stitch</label></div>
-          <div class="char-pill disney"><input type="checkbox" id="c_pooh"><label for="c_pooh">Winnie the Pooh</label></div>
+          <label for="uk-notes">Anything specific you'd like to do or experience at Universal Kids?</label>
+          <textarea id="uk-notes" placeholder="e.g. specific rides, character meets, dining..."></textarea>
         </div>
       </div>
 
-      <hr class="char-divider" id="charDiv1" style="display:none">
+      <!-- CRUISE PREFERENCES -->
+      <div class="form-section dest-section" id="section-cruise">
+        <div class="section-label">🚢 Cruise preferences</div>
+        <p style="font-size:0.8rem;color:var(--gray-text);margin-bottom:0.75rem">Help us find the perfect cruise for you!</p>
 
-      <div class="char-group" id="universalChars" style="display:none">
-        <div class="char-group-label"><span>🎢</span> Universal Favourites</div>
-        <div class="char-pills">
-          <div class="char-pill universal"><input type="checkbox" id="u_potter"><label for="u_potter">Harry Potter</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_minions"><label for="u_minions">Minions / Despicable Me</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_mario"><label for="u_mario">Super Nintendo World</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_dragons"><label for="u_dragons">How to Train Your Dragon</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_jurassic"><label for="u_jurassic">Jurassic World</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_simpsons"><label for="u_simpsons">The Simpsons</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_spider"><label for="u_spider">Spider-Man &amp; Marvel</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_illum"><label for="u_illum">Illumination Characters</label></div>
-          <div class="char-pill universal"><input type="checkbox" id="u_monsters"><label for="u_monsters">Classic Monsters</label></div>
+        <div class="field" style="margin-bottom:0.75rem">
+          <label>Preferred cruise destination / region</label>
+          <div class="chip-group" style="margin-top:0.4rem">
+            <span class="chip">🏝 Caribbean</span>
+            <span class="chip">🏛 Mediterranean</span>
+            <span class="chip">🌊 Bahamas</span>
+            <span class="chip">🏔 Alaska</span>
+            <span class="chip">🗺 Northern Europe</span>
+            <span class="chip">🌋 Canary Islands</span>
+            <span class="chip">🌸 Bermuda</span>
+            <span class="chip">🌺 Hawaii</span>
+            <span class="chip">🌮 Mexico</span>
+            <span class="chip">✈ Open to suggestions</span>
+          </div>
+        </div>
+
+        <div class="field" style="margin-bottom:0.75rem">
+          <label for="ports">Any specific ports of call you'd love to visit?</label>
+          <input type="text" id="ports" placeholder="e.g. Cozumel, Nassau, Santorini..." />
+        </div>
+
+        <div class="field-row" style="margin-bottom:0.75rem">
+          <div class="field">
+            <label>Preferred stateroom type</label>
+            <div class="chip-group" style="margin-top:0.4rem;flex-direction:column">
+              <span class="chip">🛏 Interior</span>
+              <span class="chip">🔭 Oceanview</span>
+              <span class="chip">🌊 Veranda / Balcony</span>
+              <span class="chip">👑 Suite</span>
+              <span class="chip">💚 No preference</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Preferred location on ship</label>
+            <div class="chip-group" style="margin-top:0.4rem;flex-direction:column">
+              <span class="chip">⬆ Forward (Front)</span>
+              <span class="chip">⬛ Midship (Middle)</span>
+              <span class="chip">⬇ Aft (Rear)</span>
+              <span class="chip">🔼 Higher deck</span>
+              <span class="chip">🔽 Lower deck</span>
+              <span class="chip">💚 No preference</span>
+            </div>
+          </div>
+        </div>
+        <div class="hint">These preferences help us find the best cabin options for you — we'll do our best to match your wishes!</div>
+
+        <!-- Loyalty -->
+        <div style="margin-top:1rem">
+          <div class="section-label" style="margin-bottom:0.5rem">🏅 Cruise loyalty program numbers</div>
+          <div class="hint" style="margin-bottom:0.75rem">Enter your loyalty number(s) to help us apply member benefits, onboard credits, or cabin upgrades. ✦ Leave blank if you don't have one yet — we can help you sign up!</div>
+          <div class="loyalty-grid">
+            <div class="loyalty-field"><label>Royal Caribbean (C&amp;A)</label><input type="text" placeholder="Crown &amp; Anchor number" /></div>
+            <div class="loyalty-field"><label>Celebrity Cruises (CC)</label><input type="text" placeholder="Captain's Club number" /></div>
+            <div class="loyalty-field"><label>Disney Cruise Line</label><input type="text" placeholder="DCL loyalty number" /></div>
+            <div class="loyalty-field"><label>MSC Cruises (MSC Voyagers)</label><input type="text" placeholder="MSC Voyagers number" /></div>
+            <div class="loyalty-field"><label>Virgin Voyages (The Sailor)</label><input type="text" placeholder="Sailor number" /></div>
+            <div class="loyalty-field"><label>Other loyalty program</label><input type="text" placeholder="Program name &amp; number" /></div>
+          </div>
+        </div>
+
+        <!-- Special rates -->
+        <div style="margin-top:1rem">
+          <div class="section-label" style="margin-bottom:0.5rem">🎖 Special rate eligibility</div>
+          <div class="hint" style="margin-bottom:0.75rem">Royal Caribbean and Celebrity Cruises offer exclusive discounted rates for the following groups. Select any that apply — this helps us find you the best possible pricing!</div>
+          <div class="rate-grid">
+            <label class="rate-item"><input type="checkbox" /> 🇺🇸 US Military (Active/Veteran)</label>
+            <label class="rate-item"><input type="checkbox" /> 🇨🇦 Canadian Military (Active/Veteran)</label>
+            <label class="rate-item"><input type="checkbox" /> 🇺🇸 US Law Enforcement</label>
+            <label class="rate-item"><input type="checkbox" /> 🇨🇦 Canadian Law Enforcement</label>
+            <label class="rate-item"><input type="checkbox" /> 🇺🇸 US Fire Department</label>
+            <label class="rate-item"><input type="checkbox" /> 🇨🇦 Canadian Fire Department</label>
+            <label class="rate-item"><input type="checkbox" /> 🇺🇸 US EMT / First Responder</label>
+            <label class="rate-item"><input type="checkbox" /> 🇨🇦 Canadian EMT / First Responder</label>
+            <label class="rate-item"><input type="checkbox" /> 🎉 Age 55+</label>
+            <label class="rate-item"><input type="checkbox" id="rate-none" /> None of the above</label>
+          </div>
+          <div class="hint" style="margin-top:0.5rem">✦ Proof of eligibility may be required at time of booking. Discounts subject to availability and cruise line terms.</div>
         </div>
       </div>
 
-      <hr class="char-divider" id="charDiv2" style="display:none">
-
-      <div class="char-group" id="cruiseChars" style="display:none">
-        <div class="char-group-label"><span>🚢</span> Cruise Entertainment Preferences</div>
-        <div class="char-pills">
-          <div class="char-pill cruise"><input type="checkbox" id="cr_broadway"><label for="cr_broadway">Broadway Shows</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cr_comedy"><label for="cr_comedy">Comedy &amp; Live Shows</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cr_kids"><label for="cr_kids">Kids' Club Activities</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cr_dining"><label for="cr_dining">Specialty Dining</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cr_spa"><label for="cr_spa">Spa &amp; Relaxation</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cr_shore"><label for="cr_shore">Shore Excursions</label></div>
-        </div>
-      </div>
-
-      <hr class="char-divider" id="charDiv3" style="display:none">
-
-      <div class="char-group" id="allInclusiveChars" style="display:none">
-        <div class="char-group-label"><span>🌴</span> All Inclusive Preferences</div>
-        <div class="char-pills">
-          <div class="char-pill cruise"><input type="checkbox" id="ai_beach"><label for="ai_beach">Beach &amp; Pool</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="ai_food"><label for="ai_food">Gourmet Dining</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="ai_spa"><label for="ai_spa">Spa &amp; Wellness</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="ai_adventure"><label for="ai_adventure">Water Sports &amp; Activities</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="ai_kids"><label for="ai_kids">Kids' Club</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="ai_nightlife"><label for="ai_nightlife">Entertainment &amp; Nightlife</label></div>
-        </div>
-      </div>
-
-      <p class="char-note">Select all that apply — this helps us personalise your itinerary and recommendations!</p>
-    </div>
-
-    <!-- Cruise loyalty numbers — shown when any cruise selected -->
-    <div class="form-section" id="loyaltySection" style="display:none;">
-      <div class="section-label">Cruise Loyalty Program</div>
-      <p style="font-size:13px; color:var(--gray-600); margin-bottom:16px;">If you are a member of a cruise loyalty program, please enter your number(s) below. This helps us apply any member benefits, onboard credits, or cabin upgrades to your booking!</p>
-      <div id="loyaltyFields" style="display:flex; flex-direction:column; gap:12px;"></div>
-      <p class="char-note" style="margin-top:12px;">✦ Leave blank if you don't have a loyalty number yet — we can help you sign up!</p>
-    </div>
-
-    <!-- Cruise preferences — shown when any cruise selected -->
-    <div class="form-section" id="cruisePrefsSection" style="display:none;">
-      <div class="section-label">Cruise Preferences</div>
-      <p style="font-size:13px; color:var(--gray-600); margin-bottom:16px;">Help us find the perfect cruise for you! Tell us a little more about what you're looking for. 🚢</p>
-
-      <!-- Cruise destination -->
-      <div class="field" style="margin-bottom:14px;">
-        <label>Preferred cruise destination / region</label>
-        <div class="char-pills" style="margin-top:8px;">
-          <div class="char-pill cruise"><input type="checkbox" id="cd_caribbean"><label for="cd_caribbean">🏝 Caribbean</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_mediterranean"><label for="cd_mediterranean">🏛 Mediterranean</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_bahamas"><label for="cd_bahamas">🌊 Bahamas</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_alaska"><label for="cd_alaska">🏔 Alaska</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_europe"><label for="cd_europe">🗺 Northern Europe</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_canaries"><label for="cd_canaries">🌋 Canary Islands</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_bermuda"><label for="cd_bermuda">🌸 Bermuda</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_hawaii"><label for="cd_hawaii">🌺 Hawaii</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_mexico"><label for="cd_mexico">🌮 Mexico</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="cd_open"><label for="cd_open">✈ Open to suggestions</label></div>
-        </div>
-      </div>
-
-      <!-- Ports of call -->
-      <div class="field" style="margin-bottom:14px;">
-        <label>Any specific ports of call you'd love to visit?</label>
-        <input type="text" id="portsOfCall" placeholder="e.g. Barcelona, Santorini, Nassau, Cozumel...">
-      </div>
-
-      <!-- Stateroom type -->
-      <div class="field" style="margin-bottom:14px;">
-        <label>Preferred stateroom type</label>
-        <div class="char-pills" style="margin-top:8px;">
-          <div class="char-pill cruise"><input type="checkbox" id="st_interior"><label for="st_interior">🛏 Interior</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="st_oceanview"><label for="st_oceanview">🔭 Oceanview</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="st_veranda"><label for="st_veranda">🌊 Veranda / Balcony</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="st_suite"><label for="st_suite">👑 Suite</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="st_any"><label for="st_any">💚 No preference</label></div>
-        </div>
-      </div>
-
-      <!-- Location on ship -->
-      <div class="field" style="margin-bottom:6px;">
-        <label>Preferred location on the ship</label>
-        <div class="char-pills" style="margin-top:8px;">
-          <div class="char-pill cruise"><input type="checkbox" id="sl_forward"><label for="sl_forward">⬆ Forward (Front)</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="sl_mid"><label for="sl_mid">⬛ Midship (Middle)</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="sl_aft"><label for="sl_aft">⬇ Aft (Rear)</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="sl_high"><label for="sl_high">🔼 Higher deck</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="sl_low"><label for="sl_low">🔽 Lower deck</label></div>
-          <div class="char-pill cruise"><input type="checkbox" id="sl_noref"><label for="sl_noref">💚 No preference</label></div>
-        </div>
-      </div>
-
-      <p class="char-note" style="margin-top:10px;">✦ These preferences help us find the best cabin options for you — we'll do our best to match your wishes!</p>
-    </div>
-
-    <!-- Special rate eligibility — shown when Royal Caribbean or Celebrity selected -->
-    <div class="form-section char-section" id="specialRatesSection" style="display:none;">
-      <div class="section-label">Special Rate Eligibility</div>
-      <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">Royal Caribbean and Celebrity Cruises offer exclusive discounted rates for the following groups. Please select any that apply — this helps us find you the best possible pricing!</p>
-      <div class="char-pills" style="flex-wrap:wrap; gap:10px;">
-        <div class="char-pill cruise"><input type="checkbox" id="sr_us_military"><label for="sr_us_military">🇺🇸 US Military (Active/Veteran)</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_military"><label for="sr_ca_military">🇨🇦 Canadian Military (Active/Veteran)</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_us_law"><label for="sr_us_law">🇺🇸 US Law Enforcement</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_law"><label for="sr_ca_law">🇨🇦 Canadian Law Enforcement</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_us_fire"><label for="sr_us_fire">🇺🇸 US Fire Department</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_fire"><label for="sr_ca_fire">🇨🇦 Canadian Fire Department</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_us_emt"><label for="sr_us_emt">🇺🇸 US EMT / First Responder</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_ca_emt"><label for="sr_ca_emt">🇨🇦 Canadian EMT / First Responder</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_55plus"><label for="sr_55plus">🎉 Age 55+</label></div>
-        <div class="char-pill cruise"><input type="checkbox" id="sr_none"><label for="sr_none">None of the above</label></div>
-      </div>
-      <p class="char-note" style="margin-top:12px;">✦ Proof of eligibility may be required at time of booking. Discounts subject to availability and cruise line terms.</p>
-    </div>
-
-    <!-- Travel dates -->
-    <div class="form-section">
-      <div class="dates-header">
-        <div class="section-label">Travel dates</div>
-        <label class="flex-toggle">
-          <input type="checkbox" id="flexDates" onchange="toggleFlexDates()">
-          <div class="toggle-track"></div>
+      <!-- TRAVEL DATES -->
+      <div class="form-section">
+        <div class="section-label">📅 Travel dates</div>
+        <label class="date-toggle">
+          <input type="checkbox" id="flexible-toggle" />
           Flexible dates
         </label>
-      </div>
-
-      <div id="flexNote" class="flexible-note">
-        ✦ No problem! Let us know your preferred month or season below and we'll find the best available dates and pricing for you.
-      </div>
-
-      <div id="dateFields" class="form-grid">
-        <div class="field">
-          <label>Check-in date <span class="req">*</span></label>
-          <input type="date" id="checkin">
-          <div class="field-error" id="checkinErr">Please select a check-in date.</div>
-        </div>
-        <div class="field">
-          <label>Check-out date <span class="req">*</span></label>
-          <input type="date" id="checkout">
-          <div class="field-error" id="checkoutErr">Please select a check-out date.</div>
-        </div>
-      </div>
-
-      <div id="flexDetails" style="display:none; margin-top:14px;">
-        <div class="form-grid">
-          <div class="field">
-            <label>Preferred month or season</label>
-            <select id="flexMonth">
-              <option value="">— Select</option>
-              <option>January</option><option>February</option><option>March</option>
-              <option>April</option><option>May</option><option>June</option>
-              <option>July</option><option>August</option><option>September</option>
-              <option>October</option><option>November</option><option>December</option>
-              <option>Spring (Mar–May)</option><option>Summer (Jun–Aug)</option>
-              <option>Fall (Sep–Nov)</option><option>Winter (Dec–Feb)</option>
-            </select>
+        <div id="fixed-dates">
+          <div class="field-row">
+            <div class="field">
+              <label for="checkin">Check-in date <span class="req">*</span></label>
+              <input type="date" id="checkin" />
+              <span class="error-msg" id="checkin-err">Please select a check-in date.</span>
+            </div>
+            <div class="field">
+              <label for="checkout">Check-out date <span class="req">*</span></label>
+              <input type="date" id="checkout" />
+              <span class="error-msg" id="checkout-err">Please select a check-out date.</span>
+            </div>
           </div>
-          <div class="field">
-            <label>Approximate trip length</label>
-            <select id="flexLength">
-              <option value="">— Select</option>
-              <option>Weekend (2–3 nights)</option>
-              <option>Short trip (4–5 nights)</option>
-              <option>1 week (6–7 nights)</option>
-              <option>Extended (8+ nights)</option>
-              <option>Not sure yet</option>
-            </select>
+        </div>
+        <div id="flexible-section">
+          <div class="hint" style="margin-bottom:0.75rem">No problem! Let us know your preferred month or season and we'll find the best available dates and pricing for you.</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="pref-month">Preferred month or season</label>
+              <select id="pref-month">
+                <option value="">— Select</option>
+                <option>January</option><option>February</option><option>March</option>
+                <option>April</option><option>May</option><option>June</option>
+                <option>July</option><option>August</option><option>September</option>
+                <option>October</option><option>November</option><option>December</option>
+                <option>Spring (Mar–May)</option><option>Summer (Jun–Aug)</option>
+                <option>Fall (Sep–Nov)</option><option>Winter (Dec–Feb)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="trip-length">Approximate trip length</label>
+              <select id="trip-length">
+                <option value="">— Select</option>
+                <option>Weekend (2–3 nights)</option>
+                <option>Short trip (4–5 nights)</option>
+                <option>1 week (6–7 nights)</option>
+                <option>Extended (8+ nights)</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Guests -->
-    <div class="form-section">
-      <div class="section-label">Guests</div>
-      <div class="guest-row">
-        <div class="guest-info"><div class="guest-type">Adults</div><div class="guest-note">Age 18+</div></div>
-        <div class="counter">
-          <button class="counter-btn" onclick="changeCount('adults',-1)">−</button>
-          <div class="counter-val" id="adultsVal">2</div>
-          <button class="counter-btn" onclick="changeCount('adults',1)">+</button>
+      <!-- GUESTS -->
+      <div class="form-section">
+        <div class="section-label">👨‍👩‍👧‍👦 Guests</div>
+        <div class="guest-grid">
+          <div class="guest-box">
+            <div class="guest-label">Adults</div>
+            <div class="guest-sub">Age 18+</div>
+            <div class="counter">
+              <button type="button" onclick="changeCount('adults',-1)">−</button>
+              <span class="count" id="adults-count">2</span>
+              <button type="button" onclick="changeCount('adults',1)">+</button>
+            </div>
+          </div>
+          <div class="guest-box">
+            <div class="guest-label">Children</div>
+            <div class="guest-sub">Age 3–17</div>
+            <div class="counter">
+              <button type="button" onclick="changeCount('children',-1)">−</button>
+              <span class="count" id="children-count">0</span>
+              <button type="button" onclick="changeCount('children',1)">+</button>
+            </div>
+          </div>
+          <div class="guest-box">
+            <div class="guest-label">Infants</div>
+            <div class="guest-sub">Under 3</div>
+            <div class="counter">
+              <button type="button" onclick="changeCount('infants',-1)">−</button>
+              <span class="count" id="infants-count">0</span>
+              <button type="button" onclick="changeCount('infants',1)">+</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="guest-row">
-        <div class="guest-info"><div class="guest-type">Children</div><div class="guest-note">Age 3–17</div></div>
-        <div class="counter">
-          <button class="counter-btn" onclick="changeCount('children',-1)">−</button>
-          <div class="counter-val" id="childrenVal">0</div>
-          <button class="counter-btn" onclick="changeCount('children',1)">+</button>
-        </div>
-      </div>
-      <!-- Child age inputs — shown dynamically -->
-      <div id="childAgesWrap" style="display:none; margin-top:14px;">
-        <div style="font-size:12px; font-weight:600; color:var(--gray-600); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:10px;">Child Ages</div>
-        <div id="childAgesGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap:10px;"></div>
-      </div>
-      <div class="guest-row">
-        <div class="guest-info"><div class="guest-type">Infants</div><div class="guest-note">Under 3</div></div>
-        <div class="counter">
-          <button class="counter-btn" onclick="changeCount('infants',-1)">−</button>
-          <div class="counter-val" id="infantsVal">0</div>
-          <button class="counter-btn" onclick="changeCount('infants',1)">+</button>
-        </div>
-      </div>
-      <!-- Room requirements — shown when total guests > 4 -->
-      <div id="roomsWrap" style="display:none; margin-top:16px; padding-top:16px; border-top:1px solid var(--gray-100);">
-        <div style="font-size:12px; font-weight:600; color:var(--teal-dark); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:12px;">🏨 Room Requirements</div>
-        <div class="form-grid">
+        <div id="child-ages-section" style="margin-top:0.75rem">
           <div class="field">
-            <label>Number of rooms needed</label>
-            <select id="numRooms">
-              <option value="">— Select</option>
-              <option>1 Room</option>
-              <option>2 Rooms</option>
-              <option>3 Rooms</option>
-              <option>4 Rooms</option>
-              <option>5+ Rooms</option>
+            <label for="child-ages">Child ages</label>
+            <input type="text" id="child-ages" placeholder="e.g. 4, 7, 12" />
+          </div>
+        </div>
+
+        <!-- Room requirements -->
+        <div style="margin-top:1rem">
+          <div class="section-label" style="margin-bottom:0.5rem">🏨 Room requirements</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="num-rooms">Number of rooms needed</label>
+              <select id="num-rooms">
+                <option value="">— Select</option>
+                <option>1 Room</option><option>2 Rooms</option><option>3 Rooms</option>
+                <option>4 Rooms</option><option>5+ Rooms</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="guests-room">Guests per room</label>
+              <select id="guests-room">
+                <option value="">— Select</option>
+                <option>2 guests per room</option>
+                <option>3 guests per room</option>
+                <option>4 guests per room</option>
+                <option>Varies per room</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESIDENCY -->
+      <div class="form-section">
+        <div class="section-label">🌎 Residency</div>
+        <p style="font-size:0.8rem;color:var(--gray-text);margin-bottom:0.75rem">Many vacation packages offer exclusive discounts based on where you live. Please select your country and state/province so we can find the best resident rates for you!</p>
+        <div class="field-row">
+          <div class="field">
+            <label for="country">Country of residence</label>
+            <select id="country" onchange="updateState()">
+              <option value="">— Select country</option>
+              <option value="us">🇺🇸 United States</option>
+              <option value="ca">🇨🇦 Canada</option>
+              <option value="other">🌍 Other</option>
+            </select>
+          </div>
+          <div class="field" id="state-field" style="display:none">
+            <label for="state">State / Province</label>
+            <select id="state"><option value="">— Select</option></select>
+          </div>
+          <div class="field" id="country-other-field" style="display:none">
+            <label for="country-other">Country name</label>
+            <input type="text" id="country-other" placeholder="Your country" />
+          </div>
+        </div>
+      </div>
+
+      <!-- HOTEL PREF -->
+      <div class="form-section">
+        <div class="section-label">🏨 Hotel preference</div>
+        <div class="hotel-grid">
+          <div class="hotel-card" onclick="selectHotel(this,'value')">
+            <div class="hotel-icon">💚</div>
+            <div class="hotel-name">Value</div>
+            <div class="hotel-desc">Best savings</div>
+          </div>
+          <div class="hotel-card" onclick="selectHotel(this,'moderate')">
+            <div class="hotel-icon">⭐</div>
+            <div class="hotel-name">Moderate</div>
+            <div class="hotel-desc">Great balance</div>
+          </div>
+          <div class="hotel-card" onclick="selectHotel(this,'luxury')">
+            <div class="hotel-icon">👑</div>
+            <div class="hotel-name">Luxury</div>
+            <div class="hotel-desc">Premium stay</div>
+          </div>
+        </div>
+        <input type="hidden" id="hotel-pref" />
+      </div>
+
+      <!-- TICKETS & BUDGET -->
+      <div class="form-section">
+        <div class="section-label">🎟 Park tickets &amp; budget</div>
+        <div class="field-row">
+          <div class="field">
+            <label for="ticket-type">Ticket type</label>
+            <select id="ticket-type">
+              <option>— No tickets needed</option>
+              <option>1-Day Ticket</option>
+              <option>2-Day Ticket</option>
+              <option>3-Day Ticket</option>
+              <option>4-Day Ticket</option>
+              <option>Annual Pass</option>
             </select>
           </div>
           <div class="field">
-            <label>Guests per room</label>
-            <select id="guestsPerRoom">
-              <option value="">— Select</option>
-              <option>2 guests per room</option>
-              <option>3 guests per room</option>
-              <option>4 guests per room</option>
-              <option>Varies per room</option>
+            <label for="budget">Budget range</label>
+            <select id="budget">
+              <option>— Flexible</option>
+              <option>Under $2,000</option>
+              <option>$2,000 – $4,000</option>
+              <option>$4,000 – $6,000</option>
+              <option>$6,000+</option>
             </select>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Residency -->
-    <div class="form-section">
-      <div class="section-label">Residency</div>
-      <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">Many vacation packages offer exclusive discounts based on where you live. Please select your country and state/province so we can find the best resident rates for you!</p>
-      <div class="form-grid">
+      <!-- HOW DID YOU HEAR -->
+      <div class="form-section">
+        <div class="section-label">📣 How did you hear about us?</div>
         <div class="field">
-          <label>Country of residence</label>
-          <select id="resCountry" onchange="updateStateList()">
-            <option value="">— Select country</option>
-            <option value="us">🇺🇸 United States</option>
-            <option value="ca">🇨🇦 Canada</option>
-            <option value="other">🌍 Other</option>
+          <select id="referral">
+            <option>— Select</option>
+            <option>Google</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>Friend / Family</option>
+            <option>Returning client</option>
+            <option>Other</option>
           </select>
         </div>
-        <div class="field" id="stateFieldWrap" style="display:none">
-          <label id="stateLabel">State / Province</label>
-          <select id="resState">
-            <option value="">— Select</option>
-          </select>
-        </div>
-        <div class="field" id="otherCountryWrap" style="display:none">
-          <label>Country name</label>
-          <input type="text" id="otherCountry" placeholder="e.g. United Kingdom">
-        </div>
       </div>
-    </div>
 
-    <!-- Hotel preference -->
-    <div class="form-section">
-      <div class="section-label">Hotel preference</div>
-      <div class="tier-grid">
-        <div class="tier-option"><input type="radio" name="tier" id="t1" value="value"><label for="t1"><span class="tier-icon">💚</span><span class="tier-name">Value</span><span class="tier-price">Best savings</span></label></div>
-        <div class="tier-option"><input type="radio" name="tier" id="t2" value="moderate" checked><label for="t2"><span class="tier-icon">⭐</span><span class="tier-name">Moderate</span><span class="tier-price">Great balance</span></label></div>
-        <div class="tier-option"><input type="radio" name="tier" id="t3" value="luxury"><label for="t3"><span class="tier-icon">👑</span><span class="tier-name">Luxury</span><span class="tier-price">Premium stay</span></label></div>
-      </div>
-    </div>
-
-    <!-- Tickets & add-ons -->
-    <div class="form-section">
-      <div class="section-label">Park tickets &amp; add-ons</div>
-      <div class="form-grid">
+      <!-- SPECIAL REQUESTS -->
+      <div class="form-section">
+        <div class="section-label">💬 Special requests</div>
         <div class="field">
-          <label>Ticket type</label>
-          <select id="ticketType">
-            <option value="">— No tickets needed</option>
-            <option>1-Day Ticket</option><option>2-Day Ticket</option>
-            <option>3-Day Ticket</option><option>4-Day Ticket</option><option>Annual Pass</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Budget range</label>
-          <select id="budget">
-            <option value="">— Flexible</option>
-            <option>Under $2,000</option><option>$2,000 – $4,000</option>
-            <option>$4,000 – $6,000</option><option>$6,000+</option>
-          </select>
+          <label for="notes">Tell us more about your trip</label>
+          <textarea id="notes" placeholder="Birthdays, anniversaries, accessibility needs, must-do experiences..."></textarea>
         </div>
       </div>
-      <div class="form-grid" style="margin-top:12px">
-        <div class="field">
-          <label>How did you hear about us?</label>
-          <select id="source">
-            <option value="">— Select</option>
-            <option>Google</option><option>Instagram</option><option>Facebook</option>
-            <option>Friend / Family</option><option>Returning client</option><option>Other</option>
-          </select>
-        </div>
+
+      <!-- SUBMIT -->
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit">Send My Quote Request ✈</button>
+        <p class="privacy-note">🔒 Your info is safe. We never share your data.</p>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-card" id="success-card">
+    <div class="success-icon">✈️</div>
+    <h2>Quote request sent!</h2>
+    <p>Thanks for reaching out. <strong>Mariah</strong> will review your request and get back to you within <strong>24 hours</strong> with a personalised quote.</p>
+    <p style="margin-top:0.5rem">In the meantime, feel free to email <a href="mailto:mariah.v@mhtravelagency.com" style="color:var(--gold)">mariah.v@mhtravelagency.com</a> with any questions.</p>
+    <div class="agent-card">
+      <div class="agent-avatar">M</div>
+      <div class="agent-info">
+        <strong>Mariah V.</strong>
+        <span>Your dedicated travel agent</span><br>
+        <span style="color:var(--gold);font-size:0.75rem">mariah.v@mhtravelagency.com</span><br>
+        <span>Responds within 24 hours</span>
       </div>
     </div>
+  </div>
 
-    <!-- Special requests -->
-    <div class="form-section">
-      <div class="section-label">Special requests</div>
-      <div class="field">
-        <label>Tell us more about your trip</label>
-        <textarea id="notes" placeholder="Any special occasions, accessibility needs, must-do experiences, or other details…"></textarea>
+  <!-- WHY BOOK DIRECTLY WITH ME -->
+  <div class="why-section">
+    <h2>Why Book Directly With Me?</h2>
+    <p class="why-sub">When you book through Mariah, you get more than just a reservation — you get a dedicated travel partner.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">✨</span>
+        <h3>Personalized Recommendations</h3>
+        <p>Every trip is tailored to you — your budget, your travel style, your dream vacation.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💸</span>
+        <h3>Complimentary Planning Services</h3>
+        <p>My services are 100% free to you. You pay nothing extra to have an expert in your corner.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">😌</span>
+        <h3>Stress-Free Booking Experience</h3>
+        <p>I handle all the details so you can focus on the excitement of your upcoming trip.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🧭</span>
+        <h3>Expert Guidance From Start to Finish</h3>
+        <p>From your first inquiry to the day you return home, I'm here every step of the way.</p>
+      </div>
+      <div class="why-card why-card--purple">
+        <span class="why-icon">🚢</span>
+        <h3>Onboard Credit for Cruises</h3>
+        <p>Book a cruise through me and receive exclusive onboard credit to spend however you like on your sailing!</p>
+      </div>
+      <div class="why-card why-card--gold">
+        <span class="why-icon">🎉</span>
+        <h3>$50 Referral Reward</h3>
+        <p>Love your trip? Refer a friend or family member — when they book with me, <strong>you earn $50!</strong> No limit on referrals!</p>
       </div>
     </div>
+  </div>
 
-    <!-- Submit -->
-    <div class="submit-section">
-      <button class="btn-submit" onclick="submitForm()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        Send My Quote Request
-      </button>
-      <div class="submit-note">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Your info is safe. We never share your data.
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <h2>How it works</h2>
+    <p class="how-sub">Simple 3-step process</p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <p>Fill out this form with your dream trip details</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <p>Mariah builds a personalised quote within 24 hrs</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <p>Review, tweak &amp; book — we handle everything!</p>
       </div>
     </div>
+  </div>
 
-    <!-- Success -->
-    <div class="success-state" id="successState">
-      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h3>Quote request sent! ✈</h3>
-      <p>Thanks for reaching out. <strong>Mariah</strong> will review your request and get back to you at <strong id="confirmEmail"></strong> within 24 hours with a personalised quote.</p>
-      <p style="margin-top:12px; font-size:13px; color:#ADB5BD">In the meantime, feel free to email <a href="mailto:mariah.v@mhtravelagency.com" style="color:var(--teal)">mariah.v@mhtravelagency.com</a> with any questions.</p>
-    </div>
-
-  </div><!-- /form-card -->
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <div class="contact-card">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-        <div style="width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:white;flex-shrink:0;">M</div>
-        <div>
-          <div style="font-family:'Playfair Display',serif;font-size:15px;color:white;font-weight:600;margin-bottom:2px">Mariah V.</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7)">Your dedicated travel agent</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        mariah.v@mhtravelagency.com
-      </div>
-      <div class="contact-item" style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:-4px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Responds within 24 hours
-      </div>
-    </div>
-
-    <div class="info-card">
-      <div class="info-card-header">
-        <h3>Why Magic Holidays?</h3>
-        <p>+100 expert agents · Top 5 US Agency</p>
-      </div>
-      <div class="info-card-body">
-        <div class="perks-list">
-          <div class="perk"><div class="perk-icon">🎟</div>Best ticket prices — authorized reseller</div>
-          <div class="perk"><div class="perk-icon">🏨</div>Exclusive hotel rates &amp; package deals</div>
-          <div class="perk"><div class="perk-icon">📋</div>Personalised itinerary planning</div>
-          <div class="perk"><div class="perk-icon">✨</div>Character dining &amp; experience bookings</div>
-          <div class="perk"><div class="perk-icon">📞</div>24/7 support during your trip</div>
-          <div class="perk"><div class="perk-icon">💸</div>Price-match guarantee</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <div class="info-card-header">
-        <h3>How it works</h3>
-        <p>Simple 3-step process</p>
-      </div>
-      <div class="info-card-body">
-        <div class="perks-list">
-          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">1</div>Fill out this form with your dream trip details</div>
-          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">2</div>Mariah builds a personalised quote within 24 hrs</div>
-          <div class="perk"><div class="perk-icon" style="background:var(--teal-light);color:var(--teal);font-weight:700;font-size:14px;font-family:'Playfair Display',serif;">3</div>Review, tweak &amp; book — we handle everything!</div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /sidebar -->
 </div>
 
+<footer class="site-footer">
+  &copy; 2026 Magic Holidays Travel Agency &nbsp;·&nbsp;
+  <a href="mailto:mariah.v@mhtravelagency.com">mariah.v@mhtravelagency.com</a> &nbsp;·&nbsp;
+  <a href="https://instagram.com/mariah.magicholidays" target="_blank">@mariah.magicholidays</a>
+</footer>
+
 <script>
-  const guests = { adults: 2, children: 0, infants: 0 };
-
+  // ── COUNTS ──
+  const counts = { adults: 2, children: 0, infants: 0 };
   function changeCount(type, delta) {
-    const mins = { adults: 1, children: 0, infants: 0 };
-    guests[type] = Math.max(mins[type], guests[type] + delta);
-    document.getElementById(type + 'Val').textContent = guests[type];
-    if (type === 'children') updateChildAges();
-    updateRoomsSection();
-  }
-
-  function updateChildAges() {
-    const count = guests.children;
-    const wrap  = document.getElementById('childAgesWrap');
-    const grid  = document.getElementById('childAgesGrid');
-    wrap.style.display = count > 0 ? 'block' : 'none';
-    // Add or remove age fields to match count
-    const existing = grid.querySelectorAll('.child-age-field').length;
-    if (count > existing) {
-      for (let i = existing + 1; i <= count; i++) {
-        const div = document.createElement('div');
-        div.className = 'field child-age-field';
-        div.innerHTML = `<label>Child ${i} age</label><select id="childAge${i}"><option value="">— Age</option>${[...Array(15)].map((_,j)=>`<option>${j+3}</option>`).join('')}</select>`;
-        grid.appendChild(div);
-      }
-    } else {
-      for (let i = existing; i > count; i--) {
-        const last = grid.querySelector(`.child-age-field:last-child`);
-        if (last) grid.removeChild(last);
-      }
+    counts[type] = Math.max(0, counts[type] + delta);
+    if (type === 'adults') counts[type] = Math.max(1, counts[type]);
+    document.getElementById(type + '-count').textContent = counts[type];
+    if (type === 'children') {
+      document.getElementById('child-ages-section').classList.toggle('show', counts.children > 0);
     }
   }
 
-  function updateRoomsSection() {
-    const total = guests.adults + guests.children;
-    document.getElementById('roomsWrap').style.display = total > 4 ? 'block' : 'none';
-  }
-
-  // ── Residency ─────────────────────────────────────────────
-  const US_STATES = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","Washington D.C."];
-  const CA_PROVINCES = ["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland & Labrador","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon"];
-
-  function updateStateList() {
-    const country = document.getElementById('resCountry').value;
-    const stateWrap = document.getElementById('stateFieldWrap');
-    const otherWrap = document.getElementById('otherCountryWrap');
-    const stateLabel = document.getElementById('stateLabel');
-    const stateSelect = document.getElementById('resState');
-
-    stateWrap.style.display = (country === 'us' || country === 'ca') ? 'block' : 'none';
-    otherWrap.style.display = country === 'other' ? 'block' : 'none';
-
-    stateSelect.innerHTML = '<option value="">— Select</option>';
-    if (country === 'us') {
-      stateLabel.textContent = 'State';
-      US_STATES.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; stateSelect.appendChild(o); });
-    } else if (country === 'ca') {
-      stateLabel.textContent = 'Province / Territory';
-      CA_PROVINCES.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; stateSelect.appendChild(o); });
-    }
-  }
-  function toggleFlexDates() {
-    const flex    = document.getElementById('flexDates').checked;
-    const ci      = document.getElementById('checkin');
-    const co      = document.getElementById('checkout');
-    const note    = document.getElementById('flexNote');
-    const details = document.getElementById('flexDetails');
-
-    ci.disabled = flex; co.disabled = flex;
-    if (flex) { ci.value = ''; co.value = ''; }
-    note.classList.toggle('visible', flex);
-    details.style.display = flex ? 'block' : 'none';
-    if (flex) {
-      ci.classList.remove('error'); co.classList.remove('error');
-      document.getElementById('checkinErr').classList.remove('visible');
-      document.getElementById('checkoutErr').classList.remove('visible');
-    }
-  }
-
-  (function setDateDefaults() {
-    const fmt = d => d.toISOString().split('T')[0];
-    const today = new Date();
-    document.getElementById('checkin').min = fmt(today);
-    document.getElementById('checkout').min = fmt(today);
-    document.getElementById('checkin').addEventListener('change', function () {
-      const ci = new Date(this.value + 'T00:00:00');
-      const next = new Date(ci); next.setDate(next.getDate() + 1);
-      document.getElementById('checkout').min = fmt(next);
-      const co = document.getElementById('checkout');
-      if (co.value && new Date(co.value) <= ci) co.value = fmt(next);
+  // ── DESTINATION CHIPS ──
+  const cruiseDests = ['dcl','royal','msc','celebrity','virgin'];
+  document.querySelectorAll('#dest-chips .chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('selected');
+      updateDestSections();
     });
-  })();
+  });
 
-  // ── Character section ─────────────────────────────────────
-  function updateCharSection() {
-    const sel = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.value);
-    const hasDisney    = sel.includes('disney_world') || sel.includes('disneyland') || sel.includes('disneyland_paris') || sel.includes('disney_cruise');
-    const hasUniversal = sel.includes('universal_orlando') || sel.includes('universal_hollywood');
-    const hasCruise    = sel.includes('royal_caribbean') || sel.includes('msc') || sel.includes('virgin_voyages') || sel.includes('celebrity_cruises') || sel.includes('disney_cruise');
-    const hasAllInc    = sel.includes('all_inclusive');
-    const showAny      = hasDisney || hasUniversal || hasCruise || hasAllInc;
-    const hasRCOrCelebrity = sel.includes('royal_caribbean') || sel.includes('celebrity_cruises');
-    document.getElementById('cruisePrefsSection').style.display = hasCruise ? 'block' : 'none';
-
-    // Loyalty programs per cruise line
-    const loyaltyPrograms = {
-      disney_cruise:     { label: "Disney Cruise Line",     program: "Castaway Club",              field: "loyalty_disney"   },
-      royal_caribbean:   { label: "Royal Caribbean",        program: "Crown & Anchor Society #",   field: "loyalty_rc"       },
-      celebrity_cruises: { label: "Celebrity Cruises",      program: "Captain's Club #",            field: "loyalty_celebrity"},
-      msc:               { label: "MSC Cruises",            program: "MSC Voyagers Club #",         field: "loyalty_msc"      },
-      virgin_voyages:    { label: "Virgin Voyages",         program: "The Sailors' Club #",         field: "loyalty_virgin"   },
-    };
-
-    const cruiseDestinations = ['disney_cruise','royal_caribbean','celebrity_cruises','msc','virgin_voyages'];
-    const selectedCruises = sel.filter(s => cruiseDestinations.includes(s));
-    const loyaltySection = document.getElementById('loyaltySection');
-    const loyaltyFields  = document.getElementById('loyaltyFields');
-
-    if (selectedCruises.length > 0) {
-      loyaltySection.style.display = 'block';
-      loyaltyFields.innerHTML = '';
-      selectedCruises.forEach(cruise => {
-        const prog = loyaltyPrograms[cruise];
-        if (!prog) return;
-        const existing = document.getElementById(prog.field);
-        const val = existing ? existing.value : '';
-        const div = document.createElement('div');
-        div.className = 'form-grid';
-        div.style.gridTemplateColumns = '1fr 1fr';
-        div.innerHTML = `
-          <div class="field">
-            <label>${prog.label} — ${prog.program}</label>
-            <input type="text" id="${prog.field}" value="${val}" placeholder="Enter loyalty number (optional)">
-          </div>`;
-        loyaltyFields.appendChild(div);
-      });
-    } else {
-      loyaltySection.style.display = 'none';
-      loyaltyFields.innerHTML = '';
-    }
-    document.getElementById('specialRatesSection').style.display = hasRCOrCelebrity ? 'block' : 'none';
-    document.getElementById('charSection').classList.toggle('visible', showAny);
-    document.getElementById('disneyChars').style.display       = hasDisney    ? 'block' : 'none';
-    document.getElementById('universalChars').style.display    = hasUniversal ? 'block' : 'none';
-    document.getElementById('cruiseChars').style.display       = hasCruise    ? 'block' : 'none';
-    document.getElementById('allInclusiveChars').style.display = hasAllInc    ? 'block' : 'none';
-
-    const groups = [hasDisney, hasUniversal, hasCruise, hasAllInc];
-    document.getElementById('charDiv1').style.display = (groups[0] && (groups[1] || groups[2] || groups[3])) ? 'block' : 'none';
-    document.getElementById('charDiv2').style.display = (groups[1] && (groups[2] || groups[3])) ? 'block' : 'none';
-    document.getElementById('charDiv3').style.display = (groups[2] && groups[3]) ? 'block' : 'none';
+  function updateDestSections() {
+    const selected = [...document.querySelectorAll('#dest-chips .chip.selected')].map(c => c.dataset.dest);
+    const isCruise = selected.some(d => cruiseDests.includes(d));
+    const isUKids  = selected.includes('universal-kids');
+    document.getElementById('section-cruise').classList.toggle('show', isCruise);
+    document.getElementById('section-universal-kids').classList.toggle('show', isUKids);
   }
 
-  // ── Validation ────────────────────────────────────────────
-  function validate() {
-    let ok = true;
-    const flexible = document.getElementById('flexDates').checked;
-    const checks = [
-      ['firstName', 'firstNameErr', v => v.trim().length > 0],
-      ['lastName',  'lastNameErr',  v => v.trim().length > 0],
-      ['email',     'emailErr',     v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+  // ── GENERIC CHIPS ──
+  document.querySelectorAll('.chip:not([data-dest])').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+  });
+
+  // ── HOTEL SELECT ──
+  let selectedHotel = null;
+  function selectHotel(el, val) {
+    document.querySelectorAll('.hotel-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('hotel-pref').value = val;
+    selectedHotel = val;
+  }
+
+  // ── FLEXIBLE DATES ──
+  document.getElementById('flexible-toggle').addEventListener('change', function() {
+    document.getElementById('flexible-section').classList.toggle('show', this.checked);
+    document.getElementById('fixed-dates').classList.toggle('hide', this.checked);
+  });
+
+  // ── RESIDENCY ──
+  const US_STATES = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+  const CA_PROVINCES = ['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland & Labrador','Nova Scotia','Ontario','Prince Edward Island','Quebec','Saskatchewan'];
+
+  function updateState() {
+    const val = document.getElementById('country').value;
+    const sf = document.getElementById('state-field');
+    const of = document.getElementById('country-other-field');
+    const sel = document.getElementById('state');
+    sf.style.display = (val === 'us' || val === 'ca') ? 'block' : 'none';
+    of.style.display = val === 'other' ? 'block' : 'none';
+    sel.innerHTML = '<option value="">— Select</option>';
+    const list = val === 'us' ? US_STATES : val === 'ca' ? CA_PROVINCES : [];
+    list.forEach(s => { const o = document.createElement('option'); o.textContent = s; sel.appendChild(o); });
+  }
+
+  // ── FORM SUBMIT ──
+  document.getElementById('quote-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const fields = [
+      { id: 'fname', err: 'fname-err', check: v => v.trim().length > 0 },
+      { id: 'lname', err: 'lname-err', check: v => v.trim().length > 0 },
+      { id: 'email', err: 'email-err', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
     ];
+
+    const flexible = document.getElementById('flexible-toggle').checked;
     if (!flexible) {
-      checks.push(['checkin',  'checkinErr',  v => v !== '']);
-      checks.push(['checkout', 'checkoutErr', v => v !== '']);
+      fields.push(
+        { id: 'checkin',  err: 'checkin-err',  check: v => v !== '' },
+        { id: 'checkout', err: 'checkout-err', check: v => v !== '' }
+      );
     }
-    checks.forEach(([id, errId, fn]) => {
-      const el = document.getElementById(id);
-      const err = document.getElementById(errId);
-      const pass = fn(el.value);
-      el.classList.toggle('error', !pass);
-      err.classList.toggle('visible', !pass);
-      if (!pass) ok = false;
+
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const err = document.getElementById(f.err);
+      if (!f.check(el.value)) {
+        el.classList.add('error');
+        err.classList.add('show');
+        valid = false;
+      } else {
+        el.classList.remove('error');
+        err.classList.remove('show');
+      }
     });
-    return ok;
-  }
 
-  function collectFormData() {
-    const flexible = document.getElementById('flexDates').checked;
-    const destinations = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
-    const characters = [...document.querySelectorAll('.char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
+    if (!valid) return;
 
-    return {
-      '_subject':          '✈ New Quote Request — Magic Holidays',
-      '_replyto':          document.getElementById('email').value,
-      'First Name':        document.getElementById('firstName').value,
-      'Last Name':         document.getElementById('lastName').value,
-      'Email':             document.getElementById('email').value,
-      'Phone':             document.getElementById('phone').value || 'Not provided',
-      'Destinations':      destinations,
-      'Favourite Characters / Themes': characters,
-      'Flexible Dates':    flexible ? 'Yes' : 'No',
-      'Check-in Date':     flexible ? 'Flexible' : (document.getElementById('checkin').value || '—'),
-      'Check-out Date':    flexible ? 'Flexible' : (document.getElementById('checkout').value || '—'),
-      'Preferred Month':   flexible ? (document.getElementById('flexMonth').value || 'Not specified') : '—',
-      'Trip Length':       flexible ? (document.getElementById('flexLength').value || 'Not specified') : '—',
-      'Adults':            document.getElementById('adultsVal').textContent,
-      'Children':          document.getElementById('childrenVal').textContent,
-      'Infants':           document.getElementById('infantsVal').textContent,
-      'Hotel Preference':  (document.querySelector('input[name="tier"]:checked') || {}).value || 'Not selected',
-      'Ticket Type':       document.getElementById('ticketType').value || 'None',
-      'Budget Range':      document.getElementById('budget').value || 'Flexible',
-      'How They Heard':    document.getElementById('source').value || 'Not specified',
-      'Special Requests':  document.getElementById('notes').value || 'None',
-    };
-  }
+    // Build form data
+    const selectedDests = [...document.querySelectorAll('#dest-chips .chip.selected')].map(c => c.textContent.trim()).join(', ');
+    const selectedChars = [...document.querySelectorAll('#char-chips .chip.selected')].map(c => c.textContent.trim()).join(', ');
 
-  async function submitForm() {
-    if (!validate()) return;
+    const formData = new FormData();
+    formData.append('_subject', 'New Quote Request — Magic Holidays');
+    formData.append('First Name', document.getElementById('fname').value);
+    formData.append('Last Name', document.getElementById('lname').value);
+    formData.append('Email', document.getElementById('email').value);
+    formData.append('Phone', document.getElementById('phone').value);
+    formData.append('Destination(s)', selectedDests);
+    formData.append('Characters / Themes', selectedChars);
+    formData.append('Adults', counts.adults);
+    formData.append('Children', counts.children);
+    formData.append('Infants', counts.infants);
+    formData.append('Child Ages', document.getElementById('child-ages').value);
+    formData.append('Rooms Needed', document.getElementById('num-rooms').value);
+    formData.append('Guests Per Room', document.getElementById('guests-room').value);
+    formData.append('Hotel Preference', document.getElementById('hotel-pref').value);
+    formData.append('Ticket Type', document.getElementById('ticket-type').value);
+    formData.append('Budget', document.getElementById('budget').value);
+    formData.append('How Did You Hear', document.getElementById('referral').value);
+    formData.append('Special Requests', document.getElementById('notes').value);
+    if (flexible) {
+      formData.append('Preferred Month', document.getElementById('pref-month').value);
+      formData.append('Trip Length', document.getElementById('trip-length').value);
+    } else {
+      formData.append('Check-in', document.getElementById('checkin').value);
+      formData.append('Check-out', document.getElementById('checkout').value);
+    }
 
     const btn = document.querySelector('.btn-submit');
+    btn.textContent = 'Sending...';
     btn.disabled = true;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sending…';
 
     try {
-      const flexible = document.getElementById('flexDates').checked;
-      const destinations = [...document.querySelectorAll('input[name="dest"]:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
-      const characters = [...document.querySelectorAll('.char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
-
-      const formData = new FormData();
-      // Child ages
-      const childAges = [];
-      for (let i = 1; i <= guests.children; i++) {
-        const el = document.getElementById('childAge' + i);
-        childAges.push(el ? (el.value || 'Not specified') : 'Not specified');
-      }
-      const total = guests.adults + guests.children;
-
-      const specialRates = [...document.querySelectorAll('#specialRatesSection .char-pill input:checked')].map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None';
-
-      formData.append('_subject', '✈ New Quote Request — Magic Holidays');
-      formData.append('_replyto', document.getElementById('email').value);
-      formData.append('First Name', document.getElementById('firstName').value);
-      formData.append('Last Name', document.getElementById('lastName').value);
-      formData.append('Email', document.getElementById('email').value);
-      formData.append('Phone', document.getElementById('phone').value || 'Not provided');
-      formData.append('Destinations', destinations);
-      const country = document.getElementById('resCountry');
-      const resCountryText = country.options[country.selectedIndex]?.text || 'Not provided';
-      const resState = document.getElementById('resState').value || '';
-      const otherCountry = document.getElementById('otherCountry').value || '';
-      const residency = resCountryText !== '— Select country' ? (resState ? `${resState}, ${resCountryText}` : (otherCountry || resCountryText)) : 'Not provided';
-
-      // Loyalty numbers
-      const loyaltyMap = {
-        loyalty_disney:    'Disney Cruise Line — Castaway Club #',
-        loyalty_rc:        'Royal Caribbean — Crown & Anchor #',
-        loyalty_celebrity: 'Celebrity Cruises — Captain\'s Club #',
-        loyalty_msc:       'MSC Cruises — Voyagers Club #',
-        loyalty_virgin:    'Virgin Voyages — Sailors\' Club #',
-      };
-      let loyaltySummary = [];
-      Object.entries(loyaltyMap).forEach(([id, label]) => {
-        const el = document.getElementById(id);
-        if (el && el.value.trim()) loyaltySummary.push(`${label}: ${el.value.trim()}`);
-      });
-      formData.append('Cruise Loyalty Numbers', loyaltySummary.length > 0 ? loyaltySummary.join(' | ') : 'None provided');
-
-      // Cruise preferences
-      const cruiseDests    = [...document.querySelectorAll('#cruisePrefsSection #cd_caribbean, #cd_mediterranean, #cd_bahamas, #cd_alaska, #cd_europe, #cd_canaries, #cd_bermuda, #cd_hawaii, #cd_mexico, #cd_open').values()].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
-      const cruiseDestinations2 = [...document.querySelectorAll('[id^="cd_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'None selected';
-      const portsOfCall    = document.getElementById('portsOfCall')?.value || 'Not specified';
-      const stateroomType  = [...document.querySelectorAll('[id^="st_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'No preference';
-      const shipLocation   = [...document.querySelectorAll('[id^="sl_"]')].filter(i => i.checked).map(i => i.parentElement.querySelector('label').textContent.trim()).join(', ') || 'No preference';
-
-      if (document.getElementById('cruisePrefsSection').style.display !== 'none') {
-        formData.append('Cruise Destination / Region', cruiseDestinations2);
-        formData.append('Preferred Ports of Call', portsOfCall);
-        formData.append('Preferred Stateroom Type', stateroomType);
-        formData.append('Preferred Location on Ship', shipLocation);
-      }
-
-      formData.append('Country / State of Residence', residency);
-      formData.append('Special Rate Eligibility', specialRates);      formData.append('Favourite Characters / Themes', characters);
-      formData.append('Flexible Dates', flexible ? 'Yes' : 'No');
-      formData.append('Check-in Date', flexible ? 'Flexible' : (document.getElementById('checkin').value || '—'));
-      formData.append('Check-out Date', flexible ? 'Flexible' : (document.getElementById('checkout').value || '—'));
-      formData.append('Preferred Month', flexible ? (document.getElementById('flexMonth').value || 'Not specified') : '—');
-      formData.append('Trip Length', flexible ? (document.getElementById('flexLength').value || 'Not specified') : '—');
-      formData.append('Adults', guests.adults);
-      formData.append('Children', guests.children);
-      formData.append('Child Ages', guests.children > 0 ? childAges.join(', ') : 'N/A');
-      formData.append('Infants', guests.infants);
-      formData.append('Number of Rooms', total > 4 ? (document.getElementById('numRooms').value || 'Not specified') : 'N/A');
-      formData.append('Guests Per Room', total > 4 ? (document.getElementById('guestsPerRoom').value || 'Not specified') : 'N/A');
-      formData.append('Hotel Preference', (document.querySelector('input[name="tier"]:checked') || {}).value || 'Not selected');
-      formData.append('Ticket Type', document.getElementById('ticketType').value || 'None');
-      formData.append('Budget Range', document.getElementById('budget').value || 'Flexible');
-      formData.append('How They Heard', document.getElementById('source').value || 'Not specified');
-      formData.append('Special Requests', document.getElementById('notes').value || 'None');
-
-      const res = await fetch('https://formspree.io/f/mnjwgqyd', {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      const data = await res.json();
-
+      const res = await fetch('https://formspree.io/f/mnjwgqyd', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
       if (res.ok) {
-        document.getElementById('confirmEmail').textContent = document.getElementById('email').value;
-        document.querySelectorAll('.form-section, .submit-section').forEach(s => s.style.display = 'none');
-        document.getElementById('successState').style.display = 'block';
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('success-card').classList.add('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error(data.error || 'Server error');
+        btn.textContent = 'Send My Quote Request ✈';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email mariah.v@mhtravelagency.com');
       }
-    } catch (e) {
+    } catch {
+      btn.textContent = 'Send My Quote Request ✈';
       btn.disabled = false;
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send My Quote Request';
-      alert('Oops! Something went wrong. Please try again or email mariah.v@mhtravelagency.com directly.');
+      alert('Something went wrong. Please try again or email mariah.v@mhtravelagency.com');
     }
-  }
+  });
 </script>
 </body>
 </html>
