@@ -485,6 +485,7 @@
           <span class="chip" data-dest="dlp">🗼 Disneyland Paris</span>
           <span class="chip" data-dest="dcl">🚢 Disney Cruise Line</span>
           <span class="chip" data-dest="royal">⚓ Royal Caribbean</span>
+          <span class="chip" data-dest="norwegian">🛳 Norwegian Cruise Line</span>
           <span class="chip" data-dest="msc">🌊 MSC Cruises</span>
           <span class="chip" data-dest="celebrity">⭐ Celebrity Cruises</span>
           <span class="chip" data-dest="virgin">💋 Virgin Voyages</span>
@@ -591,6 +592,12 @@
         <p style="font-size:0.8rem;color:var(--gray-text);margin-bottom:0.75rem">Help us find the perfect cruise for you!</p>
 
         <div class="field" style="margin-bottom:0.75rem">
+          <label for="departure-port">Departure port <span class="req">*</span></label>
+          <input type="text" id="departure-port" placeholder="e.g. Port Canaveral, Miami, Galveston..." />
+          <span class="error-msg" id="departure-port-err">Please let us know your preferred departure port.</span>
+        </div>
+
+        <div class="field" style="margin-bottom:0.75rem">
           <label>Preferred cruise destination / region</label>
           <div class="chip-group" style="margin-top:0.4rem">
             <span class="chip">🏝 Caribbean</span>
@@ -644,6 +651,7 @@
             <div class="loyalty-field"><label>Royal Caribbean (C&amp;A)</label><input type="text" placeholder="Crown &amp; Anchor number" /></div>
             <div class="loyalty-field"><label>Celebrity Cruises (CC)</label><input type="text" placeholder="Captain's Club number" /></div>
             <div class="loyalty-field"><label>Disney Cruise Line</label><input type="text" placeholder="DCL loyalty number" /></div>
+            <div class="loyalty-field"><label>Norwegian Cruise Line (Latitudes)</label><input type="text" placeholder="Latitudes Rewards number" /></div>
             <div class="loyalty-field"><label>MSC Cruises (MSC Voyagers)</label><input type="text" placeholder="MSC Voyagers number" /></div>
             <div class="loyalty-field"><label>Virgin Voyages (The Sailor)</label><input type="text" placeholder="Sailor number" /></div>
             <div class="loyalty-field"><label>Other loyalty program</label><input type="text" placeholder="Program name &amp; number" /></div>
@@ -954,7 +962,7 @@
   }
 
   // ── DESTINATION CHIPS ──
-  const cruiseDests      = ['dcl','royal','msc','celebrity','virgin'];
+  const cruiseDests      = ['dcl','royal','norwegian','msc','celebrity','virgin'];
   const disneyDests      = ['wdw','disneyland','dlp','dcl'];
   const universalDests   = ['universal-orlando','universal-hollywood','universal-kids'];
 
@@ -1036,6 +1044,12 @@
       );
     }
 
+    const selectedDestsForValidation = [...document.querySelectorAll('#dest-chips .chip.selected')].map(c => c.dataset.dest);
+    const isCruiseSelected = selectedDestsForValidation.some(d => cruiseDests.includes(d));
+    if (isCruiseSelected) {
+      fields.push({ id: 'departure-port', err: 'departure-port-err', check: v => v.trim().length > 0 });
+    }
+
     fields.forEach(f => {
       const el = document.getElementById(f.id);
       const err = document.getElementById(f.err);
@@ -1063,6 +1077,7 @@
     formData.append('Phone', document.getElementById('phone').value);
     formData.append('Destination(s)', selectedDests);
     formData.append('Characters / Themes', selectedChars);
+    formData.append('Departure Port', document.getElementById('departure-port').value);
     formData.append('Adults', counts.adults);
     formData.append('Children', counts.children);
     formData.append('Infants', counts.infants);
