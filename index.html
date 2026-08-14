@@ -440,7 +440,95 @@
       <div class="why-card why-card--gold"><span class="why-icon">🎉</span><h3>$50 Referral Reward</h3><p>Love your trip? Refer a friend or family member — when they book with me, <strong>you earn $50!</strong> No limit on referrals!</p></div>
     </div>
   </div>
+<style>
+  .testimonials-section{
+    background:#FAF7F0;
+    padding:60px 24px;
+    text-align:center;
+  }
+  .testimonials-section .eyebrow{
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#C9A84C;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .testimonials-section h2{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(24px,4vw,32px);
+    color:#0D1B2A;
+    margin-bottom:36px;
+  }
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:20px;
+    max-width:960px;
+    margin:0 auto;
+  }
+  .testimonial-card{
+    background:#ffffff;
+    border-radius:12px;
+    padding:26px 22px;
+    text-align:left;
+    box-shadow:0 8px 24px rgba(13,27,42,0.08);
+  }
+  .testimonial-card .stars{
+    color:#C9A84C;
+    font-size:16px;
+    margin-bottom:12px;
+    letter-spacing:2px;
+  }
+  .testimonial-card p.quote{
+    font-size:14px;
+    color:#333333;
+    line-height:1.6;
+    margin-bottom:16px;
+  }
+  .testimonial-card .who{
+    font-size:12.5px;
+    font-weight:600;
+    color:#0D1B2A;
+  }
+  .testimonial-card .trip{
+    font-size:11.5px;
+    color:#777777;
+  }
+</style>
 
+<div class="testimonials-section">
+  <div class="eyebrow">Client Love</div>
+  <h2>What Families Are Saying</h2>
+
+  <div class="testimonial-grid">
+
+    <!-- SAMPLE CARD 1 — replace with a real review -->
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Mariah handled every detail of our trip so we didn't have to think twice. It felt like having a friend in the industry looking out for us."</p>
+      <div class="who">Jessica R.</div>
+      <div class="trip">Walt Disney World</div>
+    </div>
+
+    <!-- SAMPLE CARD 2 — replace with a real review -->
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Booking our cruise through Mariah was so easy. She compared all our options and got us a better deal than we could find ourselves."</p>
+      <div class="who">Daniel M.</div>
+      <div class="trip">Royal Caribbean Cruise</div>
+    </div>
+
+    <!-- SAMPLE CARD 3 — replace with a real review -->
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"From the first message to the day we got home, Mariah was on top of everything. Already booking our next trip with her."</p>
+      <div class="who">Alyssa T.</div>
+      <div class="trip">Universal Orlando</div>
+    </div>
+
+  </div>
+</div>
   <!-- FORM -->
   <div class="form-card" id="form-card">
     <form id="quote-form" novalidate>
