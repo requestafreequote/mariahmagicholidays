@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave a Review | Magic Holidays Travel Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0D1B2A;
+    --navy-light:#16283f;
+    --gold:#C9A84C;
+    --gold-light:#e4cd8d;
+    --cream:#FAF7F0;
+    --gray:#777777;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Montserrat', sans-serif;
+    background:var(--cream);
+    color:var(--navy);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
+    color:var(--white);
+    padding:64px 24px 56px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero .eyebrow{
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:'Playfair Display', serif;
+    font-size:clamp(28px, 5vw, 42px);
+    font-weight:600;
+    max-width:640px;
+    margin:0 auto 16px;
+  }
+  .hero p{
+    max-width:520px;
+    margin:0 auto;
+    color:#cfd6e0;
+    font-size:15px;
+  }
+
+  /* CONTAINER */
+  .wrap{
+    max-width:640px;
+    margin:-32px auto 0;
+    padding:0 20px 60px;
+  }
+
+  .card{
+    background:var(--white);
+    border-radius:14px;
+    box-shadow:0 12px 32px rgba(13,27,42,0.10);
+    padding:36px 30px;
+    margin-bottom:24px;
+  }
+
+  /* STAR RATING */
+  .stars-label{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:10px;
+    display:block;
+    text-align:center;
+  }
+  .star-rating{
+    display:flex;
+    flex-direction:row-reverse;
+    justify-content:center;
+    gap:4px;
+    margin-bottom:28px;
+  }
+  .star-rating input{
+    display:none;
+  }
+  .star-rating label{
+    font-size:38px;
+    color:#e2decf;
+    cursor:pointer;
+    transition:color .15s ease, transform .15s ease;
+  }
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label{
+    color:var(--gold);
+  }
+  .star-rating label:hover{
+    transform:scale(1.12);
+  }
+
+  /* FORM */
+  .field{margin-bottom:20px;}
+  .field label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    color:var(--gray);
+    margin-bottom:6px;
+  }
+  .field input[type=text],
+  .field input[type=email],
+  .field select,
+  .field textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #e3e0d6;
+    border-radius:8px;
+    font-family:'Montserrat', sans-serif;
+    font-size:14.5px;
+    color:var(--navy);
+    background:var(--cream);
+  }
+  .field textarea{
+    min-height:130px;
+    resize:vertical;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+    background:var(--white);
+  }
+
+  .consent{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:13px;
+    color:var(--gray);
+    margin-bottom:26px;
+  }
+  .consent input{margin-top:3px;}
+
+  .submit-btn{
+    width:100%;
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:16px;
+    border-radius:8px;
+    font-family:'Montserrat', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .submit-btn:hover{
+    background:var(--gold);
+    color:var(--navy);
+  }
+
+  /* REFERRAL CARD */
+  .referral{
+    background:linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%);
+    color:var(--white);
+    border-radius:14px;
+    padding:34px 30px;
+    text-align:center;
+    position:relative;
+  }
+  .referral .badge{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:6px 14px;
+    border-radius:20px;
+    margin-bottom:16px;
+  }
+  .referral h2{
+    font-family:'Playfair Display', serif;
+    font-size:24px;
+    margin-bottom:10px;
+  }
+  .referral .amount{
+    font-family:'Playfair Display', serif;
+    font-size:44px;
+    color:var(--gold-light);
+    font-weight:700;
+    line-height:1;
+    margin:6px 0 14px;
+  }
+  .referral p{
+    color:#cfd6e0;
+    font-size:14px;
+    max-width:440px;
+    margin:0 auto 20px;
+  }
+  .referral .how-it-works{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:16px;
+    margin:22px 0 24px;
+    text-align:left;
+  }
+  .step{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(201,168,76,0.25);
+    border-radius:10px;
+    padding:14px 16px;
+    flex:1 1 150px;
+    max-width:170px;
+  }
+  .step .num{
+    color:var(--gold);
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:18px;
+    display:block;
+    margin-bottom:4px;
+  }
+  .step p{
+    font-size:12.5px;
+    color:#dfe4eb;
+    margin:0;
+  }
+  .referral .cta{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:13px 26px;
+    border-radius:8px;
+    text-decoration:none;
+    transition:background .2s ease;
+  }
+  .referral .cta:hover{
+    background:var(--gold-light);
+  }
+  .referral .fine{
+    font-size:11px;
+    color:#8a95a6;
+    margin-top:16px;
+    max-width:420px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    font-size:12px;
+    color:var(--gray);
+  }
+  footer .brand{
+    font-family:'Playfair Display', serif;
+    color:var(--navy);
+    font-weight:600;
+    font-size:14px;
+    margin-bottom:4px;
+    display:block;
+  }
+
+  @media (max-width:480px){
+    .card{padding:28px 20px;}
+    .star-rating label{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="eyebrow">Magic Holidays Travel Agency</div>
+    <h1>Welcome home! How was the magic?</h1>
+    <p>You're back from your trip and I'd love to hear how it went. Your review takes less than a minute and means the world to a small business like mine.</p>
+  </div>
+
+  <div class="wrap">
+    <form class="card" action="https://formspree.io/f/maewjrlb" method="POST">
+      <span class="stars-label">Rate Your Experience</span>
+      <div class="star-rating">
+        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+      </div>
+
+      <div class="field">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="First & last name">
+      </div>
+
+      <div class="field">
+        <label for="trip">Trip / Destination</label>
+        <input type="text" id="trip" name="trip" placeholder="e.g. Disney World, Royal Caribbean Cruise">
+      </div>
+
+      <div class="field">
+        <label for="review">Your Review</label>
+        <textarea id="review" name="review" required placeholder="Tell me about your trip — what stood out, how the planning process went, anything you'd want future travelers to know."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="So I can follow up if needed — not shown publicly">
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="consent" name="consent_to_share" value="Yes, share my review publicly">
+        <label for="consent" style="text-transform:none; font-weight:400; letter-spacing:0;">It's okay to share my review (first name + last initial) on your website and social media.</label>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit My Review</button>
+    </form>
+
+    <div class="referral">
+      <span class="badge">Referral Perk</span>
+      <h2>Know someone planning a trip?</h2>
+      <div class="amount">$50</div>
+      <p>Send them my way. When they book directly with me and complete their vacation, you get a $50 gift card as a thank-you — no limit on how many times you can earn it.</p>
+
+      <div class="how-it-works">
+        <div class="step"><span class="num">1</span><p>Share my info or send them to my quote form</p></div>
+        <div class="step"><span class="num">2</span><p>They mention your name & book directly with me</p></div>
+        <div class="step"><span class="num">3</span><p>Once they travel, you get a $50 gift card</p></div>
+      </div>
+
+      <a class="cta" href="https://mariahlynn94-a11y.github.io/requestafreequote" target="_blank">Send Them My Quote Form</a>
+      <p class="fine">Referral reward is issued after the referred traveler's final payment and completed trip. Reach out anytime with questions.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span class="brand">Magic Holidays Travel Agency</span>
+    mariah.v@mhtravelagency.com &nbsp;·&nbsp; @magicholidays.bymariah
+  </footer>
+
+</body>
+</html>
