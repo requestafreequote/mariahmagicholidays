@@ -588,6 +588,7 @@ Garcia-Vargas Family"</p>
           <span class="chip" data-dest="celebrity">⭐ Celebrity Cruises</span>
           <span class="chip" data-dest="virgin">💋 Virgin Voyages</span>
           <span class="chip" data-dest="allinclusive">🌴 All Inclusive</span>
+          <span class="chip" data-dest="palace">🏖 Palace Resorts</span>
           <span class="chip" data-dest="europe">🗺 Europe</span>
         </div>
       </div>
@@ -659,6 +660,38 @@ Garcia-Vargas Family"</p>
           <span class="chip">Entertainment &amp; Nightlife</span>
         </div>
         <div class="hint">Select all that apply — helps us find your perfect resort!</div>
+      </div>
+
+            <!-- PALACE RESORTS — shows for Palace Resorts -->
+      <div class="form-section dest-section" id="section-palace">
+        <div class="section-label">🏖 Palace Resorts &amp; Baglioni Hotels</div>
+        <div class="chip-group" id="palace-chips">
+          <div class="chip-divider" style="border-top:none;margin-top:0">PALACE RESORTS — MEXICO</div>
+          <span class="chip">Beach Palace Family Resort &amp; Spa</span>
+          <span class="chip">Sun Palace Adults Only – All Inclusive</span>
+          <span class="chip">Playacar Palace – All Inclusive</span>
+          <span class="chip">Cozumel Palace – All Inclusive</span>
+
+          <div class="chip-divider">MOON PALACE</div>
+          <span class="chip">Moon Palace Cancún – All Inclusive</span>
+          <span class="chip">Moon Palace The Grand – Cancún</span>
+          <span class="chip">Moon Palace Nizuc Cancún – All Inclusive</span>
+          <span class="chip">Moon Palace The Grand – Punta Cana</span>
+
+          <div class="chip-divider">LE BLANC SPA RESORT — ADULTS ONLY</div>
+          <span class="chip">Le Blanc Spa Resort Cancún</span>
+          <span class="chip">Le Blanc Spa Resort Los Cabos</span>
+
+          <div class="chip-divider">BAGLIONI HOTELS &amp; RESORTS</div>
+          <span class="chip">Baglioni Resort Sardinia – Italy</span>
+          <span class="chip">Casa Baglioni – Milan</span>
+          <span class="chip">Palazzo Firenze – Florence</span>
+          <span class="chip">Baglioni Hotel Luna – Venice</span>
+          <span class="chip">Baglioni Hotel Regina – Rome</span>
+          <span class="chip">Baglioni Masseria Muzza – Resort &amp; Spa</span>
+          <span class="chip">Baglioni Resort Maldives – Luxury All-Inclusive</span>
+        </div>
+        <div class="hint">Select all that interest you — we'll price them out and compare for you!</div>
       </div>
 
       <!-- UNIVERSAL KIDS RESORT SECTION -->
@@ -1085,6 +1118,7 @@ Garcia-Vargas Family"</p>
     document.getElementById('section-universal-chars').classList.toggle('show', isUniversal);
     document.getElementById('section-cruise-chars').classList.toggle('show', isCruise);
     document.getElementById('section-allinclusive-chars').classList.toggle('show', isAllInclusive);
+    document.getElementById('section-palace').classList.toggle('show', selected.includes('palace'));
   }
 
   // ── GENERIC CHIPS ──
@@ -1165,7 +1199,12 @@ Garcia-Vargas Family"</p>
 
     // Build form data
     const selectedDests = [...document.querySelectorAll('#dest-chips .chip.selected')].map(c => c.textContent.trim()).join(', ');
-    const selectedChars = [...document.querySelectorAll('#char-chips .chip.selected')].map(c => c.textContent.trim()).join(', ');
+    const pick = id => {
+    const s = document.getElementById(id);
+    return (s && s.classList.contains('show'))
+        ? [...s.querySelectorAll('.chip.selected')].map(c => c.textContent.trim()).join(', ')
+        : '';
+    };
 
     const formData = new FormData();
     formData.append('_subject', 'New Quote Request — Magic Holidays');
@@ -1174,7 +1213,14 @@ Garcia-Vargas Family"</p>
     formData.append('Email', document.getElementById('email').value);
     formData.append('Phone', document.getElementById('phone').value);
     formData.append('Destination(s)', selectedDests);
-    formData.append('Characters / Themes', selectedChars);
+    formData.append('Disney Characters', pick('section-disney-chars'));
+    formData.append('Universal Characters', pick('section-universal-chars'));
+    formData.append('Universal Kids Characters', pick('section-universal-kids'));
+    formData.append('Cruise Entertainment', pick('section-cruise-chars'));
+    formData.append('Cruise Preferences (region, stateroom, location)', pick('section-cruise'));
+    formData.append('Ports of Call', document.getElementById('ports').value);
+    formData.append('All Inclusive Preferences', pick('section-allinclusive-chars'));
+    formData.append('Palace Resorts', [...document.querySelectorAll('#palace-chips .chip.selected')].map(c => c.textContent.trim()).join(', '));
     formData.append('Departure Port', document.getElementById('departure-port').value);
     formData.append('Adults', counts.adults);
     formData.append('Children', counts.children);
